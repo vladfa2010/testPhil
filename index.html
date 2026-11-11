@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Private Art Encounters — CIFRA</title>
-<meta name="description" content="A curated series of art and gastronomy experiences for premium clients. Private dinners where contemporary media art, gastronomy and discovery come together — in Dubai and Abu Dhabi.">
+<meta name="description" content="Bespoke art and gastronomy experiences curated by CIFRA for brands and their premium clients in Dubai and Abu Dhabi. Created on request only — not open to the public.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap" rel="stylesheet">
@@ -43,10 +43,6 @@ button{font:inherit;color:inherit}
 .dark .h{color:var(--cream)}
 .light{background:var(--light);color:var(--ink-l)}
 
-/* текст, который ещё предстоит написать */
-.tbd{position:relative;border:1.5px dashed currentColor;border-radius:var(--radius);padding:22px;opacity:.55}
-.tbd::before{content:"Text TBD";position:absolute;top:-10px;left:16px;padding:0 8px;font-size:11px;font-variation-settings:"wdth" 151;font-weight:900;text-transform:uppercase;background:var(--light)}
-.dark .tbd::before{background:var(--dark)}
 
 .pill{display:inline-flex;align-items:center;gap:10px;border:1.5px solid currentColor;border-radius:999px;padding:12px 26px;font-size:16px;cursor:pointer;background:transparent;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
 .pill:hover{background:var(--ink-d);color:var(--dark);border-color:var(--ink-d)}
@@ -92,9 +88,11 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
 .hero-in{position:relative;z-index:1}
 .hero h1{font-size:clamp(32px,9vw,150px);color:var(--ink-d);max-width:11ch}
 .hero-side{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,60px);align-items:end;margin-top:clamp(24px,4vh,40px)}
-.hero-side p{max-width:30ch;font-size:clamp(17px,1.5vw,22px);font-variation-settings:"wdth" 151;font-weight:800;line-height:1.2}
+.hero-side>p{max-width:30ch;font-size:clamp(17px,1.5vw,22px);font-variation-settings:"wdth" 151;font-weight:800;line-height:1.2}
 .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.hero-ctas{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.hero-note{margin-top:14px;max-width:44ch;font-size:15px;color:rgba(247,247,247,.82);text-align:right}
+@media (max-width:860px){.hero-note{text-align:left}}
+.hero-ctas{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
 .hero-eyebrow{position:relative;z-index:1;margin-bottom:22px}
 .hero-act{display:flex;flex-direction:column;align-items:flex-end}
 .hero-tags{justify-content:flex-end}
@@ -186,8 +184,16 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
 
 /* ---------- WHO (TBD) ---------- */
 .wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px);margin-top:clamp(40px,6vh,70px)}
-.wgrid .tbd h3{font-size:clamp(18px,1.6vw,22px)}
-.wgrid .tbd p{margin-top:10px;font-size:15px}
+.wcard{border-top:1.5px solid var(--line-l);padding-top:20px}
+.wcard h3{font-size:clamp(18px,1.6vw,22px)}
+.wcard p{margin-top:10px;font-size:16px;color:var(--muted-l)}
+.note-l{margin-top:clamp(30px,5vh,50px);font-size:16px;color:var(--muted-l);max-width:52ch}
+.art-foot{padding:16px var(--pad) clamp(40px,6vh,60px);font-size:13px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted-l)}
+.prog-terms{margin-top:34px;padding-top:22px;border-top:1.5px solid var(--line-d)}
+.prog-terms p{font-size:15px;color:var(--muted-d);max-width:44ch}
+.prog-terms p+p{margin-top:10px}
+.contact-note{margin-top:18px;max-width:40ch;font-size:15px;color:var(--muted-d)}
+.foot-row span{line-height:1.6}
 @media (max-width:900px){.wgrid{grid-template-columns:1fr}}
 
 /* ---------- CONTACT ---------- */
@@ -240,10 +246,11 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
       <p>A curated series of art and gastronomy experiences for premium clients</p>
       <div class="hero-act">
       <div class="hero-tags">
-        <span class="tagpill">6–7 exclusive encounters a year</span>
+        <span class="tagpill">By request only</span>
         <span class="tagpill">Dubai &amp; Abu Dhabi</span>
         <span class="tagpill">30–40 guests per event</span>
       </div>
+      <p class="hero-note">Private evenings created exclusively for brands and their invited guests — not a public event.</p>
       <div class="hero-ctas">
         <a class="pill solid" href="#contact">Plan an encounter →</a>
         <a class="pill" href="#experience">Discover the experience</a>
@@ -263,6 +270,7 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
     <li><a href="#artworks">Artworks</a></li>
     <li><a href="#exclusivity">Exclusivity</a></li>
     <li><a href="#programme">The programme</a></li>
+    <li><a href="#who">Who it's for</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </section>
@@ -277,7 +285,7 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
       <p class="rv rv-d1">Private Art Encounters transforms a traditional client dinner into a <b>curated cultural experience</b> — combining private access, contemporary art, gastronomy and discovery.</p>
     </div>
     <div class="benefits">
-      <h2 class="h rv">The programme creates</h2>
+      <h2 class="h rv">For your brand, the programme creates</h2>
       <ul class="blist">
         <li class="rv"><h3 class="h">Exclusive access</h3><p>Experiences that cannot simply be booked or visited independently.</p></li>
         <li class="rv"><h3 class="h">Cultural relevance</h3><p>A contemporary programme connecting your brand with art, technology and culture.</p></li>
@@ -319,6 +327,7 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
       <article class="tcard rv rv-d2"><div class="thumb"><img src="assets/pae/theme-city.jpg" alt="Robotic arms holding a garment"></div><h3 class="h">Future of the City</h3><p>New ways of imagining how we live, move and connect.</p></article>
       <article class="tcard rv rv-d3"><div class="thumb"><img src="assets/pae/theme-materials.jpg" alt="Stone sculpture with an embedded screen"></div><h3 class="h">New Materialities</h3><p>From physical matter to data, light and digital environments.</p></article>
     </div>
+    <p class="note-l rv">Themes can also be developed around your brand's story, values or collections.</p>
   </div>
 </section>
 
@@ -349,6 +358,7 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
     <figure class="atile"><img src="assets/pae/art-sequence-error.jpg" alt="Still from Sequence Error"><figcaption><span class="h">Sequence Error</span><span>George Drivas</span></figcaption></figure>
     <figure class="atile"><img src="assets/pae/art-spore-monologue.jpg" alt="Still from The Spore Monologue"><figcaption><span class="h">The Spore Monologue</span><span>Loong Pan</span></figcaption></figure>
   </div>
+  <p class="art-foot">Selected works shown as examples.</p>
 </section>
 
 <!-- EXCLUSIVITY -->
@@ -358,7 +368,7 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
     <p class="lbl rv">The element of exclusivity</p>
     <h2 class="h rv rv-d1">An experience designed around access, anticipation and discovery</h2>
     <ul class="blist">
-      <li class="rv"><h3 class="h">Secret locations</h3><p>The location can be revealed only 24 / 48 hours before each encounter.</p></li>
+      <li class="rv"><h3 class="h">Secret locations</h3><p>The location is revealed to guests only 24–48 hours before each encounter.</p></li>
       <li class="rv"><h3 class="h">Private art access</h3><p>Specially selected works, previews or artistic content rarely accessible to the wider public.</p></li>
       <li class="rv"><h3 class="h">Unexpected venues</h3><p>Each encounter can take place in a different setting across Dubai and Abu Dhabi.</p></li>
       <li class="rv"><h3 class="h">Curated by CIFRA</h3><p>From the artistic narrative and selection of works to the dialogue between art, space and gastronomy.</p></li>
@@ -378,6 +388,10 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
     <div class="roles rv">
       <p class="h">You provide the community</p>
       <p class="h">CIFRA curates the cultural experience</p>
+      <div class="prog-terms">
+        <p>A single bespoke evening, or a series of up to 6–7 encounters throughout the year.</p>
+        <p>Every encounter is private and created on request — exclusively for the commissioning partner and its invited guests. It cannot be booked or attended independently.</p>
+      </div>
     </div>
   </div>
   <div class="prog-img"><img src="assets/pae/flowers-close.jpg" alt="Close-up of a flower-dressed dinner table with glassware"></div>
@@ -388,11 +402,11 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
   <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
     <p class="lbl rv">Who it's for</p>
-    <div class="tbd rv" style="margin-top:26px;max-width:760px"><h2 class="h" style="max-width:none">Headline for the audience section</h2></div>
+    <h2 class="h rv rv-d1" style="margin-top:22px">For brands whose clients have seen everything</h2>
     <div class="wgrid">
-      <div class="tbd rv"><h3 class="h">Audience 01</h3><p>Who this client is and what the encounter gives them.</p></div>
-      <div class="tbd rv rv-d1"><h3 class="h">Audience 02</h3><p>Who this client is and what the encounter gives them.</p></div>
-      <div class="tbd rv rv-d2"><h3 class="h">Audience 03</h3><p>Who this client is and what the encounter gives them.</p></div>
+      <article class="wcard rv"><h3 class="h">Luxury &amp; lifestyle brands</h3><p>Jewellery, fashion, watch and beauty houses looking to host their top clients beyond the boutique and the usual gala dinner.</p></article>
+      <article class="wcard rv rv-d1"><h3 class="h">Private banking &amp; wealth management</h3><p>Banks and family offices that want to thank and retain high-net-worth clients with an experience money alone cannot buy.</p></article>
+      <article class="wcard rv rv-d2"><h3 class="h">Hospitality &amp; premium real estate</h3><p>Hotels, residences and developers that want to give their guests and residents privileged access to contemporary culture.</p></article>
     </div>
   </div>
 </section>
@@ -405,6 +419,7 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
       <div>
         <h2 class="h rv">Imagine what art could unlock</h2>
         <p class="lead rv rv-d1">Let's explore it together.</p>
+        <p class="contact-note rv rv-d1">Private Art Encounters is created on request for brands and organisations. Individual tickets are not available.</p>
         <div class="person rv rv-d2">
           <img src="assets/pae/philipp.jpg" alt="Philipp Mistakopulo">
           <div><span class="lbl">Philipp Mistakopulo</span><a href="mailto:philipp@cifra.com">philipp@cifra.com</a></div>
@@ -416,7 +431,7 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
         <div class="field"><label class="sr" for="f-email">Work email</label><input id="f-email" name="email" type="email" placeholder="Work email" autocomplete="email"></div>
         <div class="field"><label class="sr" for="f-msg">Message</label><textarea id="f-msg" name="message" rows="3" placeholder="Tell us about your clients and the occasion"></textarea></div>
         <button class="pill" type="submit">Request a proposal →</button>
-        <p class="form-note">By clicking the button, you agree to the processing of your personal data.</p>
+        <p class="form-note">By submitting this form, you agree to the processing of your personal data.</p>
         <div class="form-ok" id="formok" role="status"><span class="lbl">Thank you</span>We'll be in touch shortly to explore what an encounter could look like for your clients.</div>
       </form>
     </div>
@@ -426,7 +441,7 @@ h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
 <footer class="footer dark">
   <span class="wordmark" aria-hidden="true">CIFRA</span>
   <div class="foot-row">
-    <span>© 2026 CIFRA — Private Art Encounters</span>
+    <span>© 2026 CIFRA — Private Art Encounters<br>A bespoke programme created on request for partners and their invited guests. Not open to the public.</span>
     <span><a href="mailto:philipp@cifra.com">philipp@cifra.com</a> · <a href="#top">Back to top ↑</a></span>
   </div>
 </footer>
