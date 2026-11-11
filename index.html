@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SCREENPLAY — реклама, которая работает</title>
-<meta name="description" content="Стриминговая платформа для брендов: спонсорство тайтлов, интеграции в шоу, первый экран. B2B-размещение в премиальном видеоконтенте.">
+<title>SCREENPLAY — advertising that works</title>
+<meta name="description" content="A streaming platform for brands: title sponsorships, show integrations and first-screen placements. B2B advertising inside premium video content.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap" rel="stylesheet">
@@ -12,17 +12,20 @@
 :root{
   --light:#F6F6F6;
   --dark:#393C43;
-  --ink-l:#393C43;          /* текст на светлом */
-  --ink-d:#F6F6F6;          /* текст на тёмном */
+  --dark-2:#2F3237;         /* поля формы, карточки на тёмном */
+  --ink-l:#393C43;
+  --ink-d:#F6F6F6;
+  --muted-d:rgba(246,246,246,.62);
   --line-l:rgba(57,60,67,.22);
   --line-d:rgba(246,246,246,.28);
   --radius:10px;
   --ease:cubic-bezier(.25,1,.5,1);
   --pad:clamp(20px,4vw,64px);
   --side:220px;
+  --header:68px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:var(--header)}
 body{
   background:var(--light);color:var(--ink-l);
   font-family:'Roboto Flex',system-ui,sans-serif;
@@ -32,68 +35,74 @@ body{
 }
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
 ::selection{background:var(--dark);color:var(--light)}
 :focus-visible{outline:2px solid currentColor;outline-offset:3px}
 
-/* типографика презентации: широкий тяжёлый гротеск капсом */
-.h{
-  font-variation-settings:"wdth" 151,"opsz" 144;
-  font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:-.005em;
-}
-.lbl{
-  font-variation-settings:"wdth" 151;
-  font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:.01em;
-}
+.h{font-variation-settings:"wdth" 151,"opsz" 144;font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:-.005em}
+.lbl{font-variation-settings:"wdth" 151;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:.01em}
 .lead b{font-variation-settings:"wdth" 151;font-weight:900;text-transform:uppercase}
 
 .dark{background:var(--dark);color:var(--ink-d)}
 .light{background:var(--light);color:var(--ink-l)}
 
-/* появление */
+/* кнопки-«пилюли» как на b2b.cifra.com */
+.pill{display:inline-flex;align-items:center;gap:10px;border:1.5px solid currentColor;border-radius:999px;padding:12px 26px;font-size:16px;cursor:pointer;background:transparent;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+.pill:hover{background:var(--ink-d);color:var(--dark);border-color:var(--ink-d)}
+.pill.solid{background:var(--ink-d);color:var(--dark);border-color:var(--ink-d)}
+.pill.solid:hover{background:transparent;color:var(--ink-d)}
+.light .pill:hover{background:var(--dark);color:var(--light);border-color:var(--dark)}
+
 .rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.in{opacity:1;transform:none}
 .rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
-/* ---------- слайд-секция с мини-оглавлением слева ---------- */
+/* ---------- HEADER (b2b) ---------- */
+.header{position:fixed;inset:0 0 auto 0;height:var(--header);z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--pad);color:var(--ink-d);transition:background .35s var(--ease),backdrop-filter .35s var(--ease)}
+.header.solid{background:rgba(57,60,67,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.brand{font-variation-settings:"wdth" 151;font-weight:900;font-size:20px;letter-spacing:.04em;text-transform:uppercase;justify-self:start}
+.nav{display:flex;gap:26px;font-size:15px}
+.nav a{opacity:.9;transition:opacity .3s var(--ease)}
+.nav a:hover{opacity:.55}
+.header .pill{justify-self:end;padding:9px 20px;font-size:14px}
+@media (max-width:820px){.nav{display:none}.header{grid-template-columns:1fr auto}}
+
+/* ---------- слайд-секция с мини-оглавлением ---------- */
 .slide{position:relative;display:grid;grid-template-columns:var(--side) minmax(0,1fr);padding:clamp(28px,4vh,44px) var(--pad) clamp(80px,12vh,140px) 0;overflow:hidden}
-.side{position:sticky;top:28px;align-self:start;padding-left:var(--pad);font-size:14px;line-height:1.6;z-index:2}
+.side{position:sticky;top:calc(var(--header) + 24px);align-self:start;padding-left:var(--pad);font-size:14px;line-height:1.6;z-index:2}
 .side a{display:block;opacity:.9;transition:opacity .3s var(--ease),padding .3s var(--ease)}
 .side a:hover{opacity:.6}
 .side a.on{padding-left:20px}
 .side a.on::after{content:"  →"}
 .slide-body{min-width:0}
-@media (max-width:900px){
-  .slide{grid-template-columns:1fr;padding-left:var(--pad)}
-  .side{display:none}
-}
+.bt-l{border-top:1.5px solid var(--line-l)}
+.bt-d{border-top:1.5px solid var(--line-d)}
+@media (max-width:900px){.slide{grid-template-columns:1fr;padding-left:var(--pad)}.side{display:none}}
 
-/* плавающие скруглённые фото */
 .float{position:absolute;border-radius:var(--radius);overflow:hidden;z-index:1}
 .float img{width:100%;height:100%;object-fit:cover}
 
-/* ---------- HERO ---------- */
-.hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px var(--pad) 60px;overflow:hidden}
-.hero-top{position:absolute;top:26px;left:var(--pad);right:var(--pad);display:flex;justify-content:center;align-items:center}
-.brand{font-variation-settings:"wdth" 151;font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase}
-.hero-cta{position:absolute;right:0;font-size:14px;border:1.5px solid var(--dark);border-radius:999px;padding:9px 20px;transition:background .3s var(--ease),color .3s var(--ease)}
-.hero-cta:hover{background:var(--dark);color:var(--light)}
-.hero h1{position:relative;z-index:2;font-size:clamp(40px,7.6vw,128px);max-width:13ch}
-.hero-sub{position:relative;z-index:2;margin-top:28px;max-width:46ch;font-size:clamp(16px,1.4vw,20px)}
-.hero-year{position:relative;z-index:2;margin-top:40px}
-.hero .f1{width:clamp(110px,12vw,190px);aspect-ratio:16/10;left:clamp(10px,2vw,40px);top:110px}
-.hero .f2{width:clamp(110px,10vw,170px);aspect-ratio:16/9;right:22%;top:0;border-top-left-radius:0;border-top-right-radius:0}
-.hero .f3{width:clamp(120px,12vw,200px);aspect-ratio:3/2;left:16%;bottom:14%}
-.hero .f4{width:clamp(120px,12vw,200px);aspect-ratio:16/9;right:8%;bottom:26%}
-@media (max-width:700px){.hero .f2,.hero .f3,.hero .f4{display:none}.hero-cta{display:none}.hero .f1{top:70px}}
+/* ---------- HERO (b2b: полноэкранное фото, заголовок слева) ---------- */
+.hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;justify-content:flex-end;padding:calc(var(--header) + 40px) var(--pad) clamp(60px,10vh,110px);color:var(--ink-d);overflow:hidden;background:#1f2125}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:heroZoom 14s var(--ease) forwards}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(31,33,37,.92) 0%,rgba(31,33,37,.55) 48%,rgba(31,33,37,.15) 100%),linear-gradient(0deg,rgba(31,33,37,.7) 0%,transparent 45%)}
+.hero-in{position:relative;z-index:1;max-width:1100px}
+.hero h1{font-size:clamp(30px,8.2vw,124px);max-width:11ch}
+.hero-sub{margin-top:24px;max-width:44ch;font-size:clamp(16px,1.4vw,20px);color:rgba(246,246,246,.85)}
+.hero-ctas{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+.hero-tag{position:absolute;right:var(--pad);bottom:clamp(60px,10vh,110px);z-index:1}
+@media (max-width:700px){.hero-tag{display:none}}
 
-/* ---------- INDEX ---------- */
-.index{min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(30px,5vh,56px);padding:clamp(36px,6vh,60px) var(--pad) clamp(70px,10vh,110px)}
+/* ---------- INDEX (слайд содержания) ---------- */
+.index{min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(30px,5vh,56px);padding:clamp(50px,8vh,80px) var(--pad) clamp(70px,10vh,110px)}
 .index ol{list-style:none;text-align:center}
 .index li a{display:inline-block;font-size:clamp(26px,3.4vw,48px);line-height:1.3;transition:opacity .3s var(--ease)}
 .index li a:hover{opacity:.55}
 
-/* ---------- ABOUT / manifesto ---------- */
+/* ---------- ABOUT ---------- */
 .about h2{font-size:clamp(30px,4vw,62px);max-width:20ch}
 .about .lead{margin-top:clamp(140px,22vh,230px);max-width:40ch;font-size:clamp(19px,1.9vw,30px);line-height:1.3}
 .about .lead p+p{margin-top:1.1em}
@@ -102,63 +111,80 @@ img{display:block;max-width:100%}
 .about .f3{width:clamp(90px,10vw,170px);aspect-ratio:16/12;right:-20px;top:55%}
 @media (max-width:900px){.about .f2,.about .f3{display:none}.about .f1{position:relative;left:auto;top:auto;margin-top:40px}.about .lead{margin-top:40px}}
 
-/* ---------- FORMATS: «One platform. Different ways in» ---------- */
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vh,64px) clamp(30px,5vw,80px);margin-top:clamp(40px,6vh,70px)}
-.fitem{display:grid;grid-template-columns:62px 1fr;gap:20px;align-items:start}
-.ficon{width:62px;height:62px;border-radius:8px;background:var(--dark);color:var(--light);display:flex;align-items:center;justify-content:center}
-.fitem h3{font-size:clamp(18px,1.7vw,24px);margin:4px 0 8px}
-.fitem p{font-size:16px;max-width:38ch}
-@media (max-width:760px){.fgrid{grid-template-columns:1fr}}
+/* ---------- FORMATS: табы-«пилюли» (b2b «Our products») ---------- */
+.formats h2,.metrics h2,.contact h2,.process h2{font-size:clamp(30px,4vw,62px);max-width:18ch}
+.formats-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.formats-head p{max-width:36ch;font-size:16px;color:var(--muted-d)}
+.tabs{display:inline-flex;flex-wrap:wrap;gap:4px;margin-top:clamp(30px,5vh,50px);padding:5px;border-radius:999px;background:var(--dark-2)}
+.tab{border:0;background:transparent;border-radius:999px;padding:11px 20px;font-size:14px;cursor:pointer;color:var(--ink-d);font-variation-settings:"wdth" 151;font-weight:800;text-transform:uppercase;transition:background .3s var(--ease),color .3s var(--ease)}
+.tab:hover{background:rgba(246,246,246,.08)}
+.tab[aria-selected="true"]{background:var(--light);color:var(--dark)}
+.tabpanel{position:relative;margin-top:22px;border-radius:14px;overflow:hidden;aspect-ratio:16/7;min-height:380px;background:#222}
+.tabpanel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s var(--ease)}
+.tabcard{position:absolute;left:22px;top:22px;max-width:380px;padding:24px;border-radius:var(--radius);background:rgba(47,50,55,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.tabcard .num{display:block;font-size:13px;color:var(--muted-d);margin-bottom:10px}
+.tabcard h3{font-size:clamp(20px,2vw,28px);margin-bottom:12px}
+.tabcard p{font-size:16px;color:rgba(246,246,246,.86)}
+.tabcard .pill{margin-top:20px;padding:9px 20px;font-size:14px}
+.fade{opacity:0!important;transform:translateY(8px)}
+@media (max-width:640px){.tabpanel{aspect-ratio:auto;min-height:520px}.tabcard{left:12px;right:12px;top:auto;bottom:12px;max-width:none}}
 
-/* ---------- PREMIERE: «Beyond the screen» ---------- */
+/* ---------- PREMIERE ---------- */
 .prem-stack{display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;margin-top:clamp(40px,7vh,80px)}
 .prem-stack h3{font-size:clamp(26px,3.3vw,52px);max-width:22ch}
 .prem-stack .thumb{width:clamp(70px,6vw,96px);aspect-ratio:3/2;border-radius:6px;overflow:hidden}
 .prem-stack .thumb img{width:100%;height:100%;object-fit:cover}
-.prem-text{margin:clamp(40px,6vh,70px) auto 0;max-width:46ch;text-align:center;font-size:clamp(17px,1.4vw,20px);opacity:.92}
+.prem-text{margin:clamp(40px,6vh,70px) auto 0;max-width:46ch;text-align:center;font-size:clamp(17px,1.4vw,20px)}
 
-/* ---------- METRICS: «At a glance» ---------- */
-.metrics h2,.packages h2,.contact h2{font-size:clamp(30px,4vw,62px);max-width:18ch}
+/* ---------- METRICS ---------- */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(30px,5vw,80px);margin-top:clamp(60px,12vh,140px);max-width:1000px}
 .mcell{border-top:1.5px solid var(--line-d);padding:22px 0 34px}
 .mcell h3{font-size:clamp(26px,3vw,46px)}
-.mcell p{margin-top:10px;font-size:15px;max-width:40ch;opacity:.9}
+.mcell p{margin-top:10px;font-size:15px;max-width:40ch;color:var(--muted-d)}
 @media (max-width:640px){.mgrid{grid-template-columns:1fr}}
 
-/* ---------- PACKAGES: список кейсов ---------- */
-.plist{margin-top:clamp(40px,6vh,70px)}
-.prow{display:grid;grid-template-columns:clamp(150px,15vw,240px) minmax(0,.9fr) minmax(0,1.3fr);gap:clamp(18px,2.4vw,36px);align-items:start;padding:14px 0}
-.prow .thumb{aspect-ratio:16/10;border-radius:8px;overflow:hidden}
-.prow .thumb img{width:100%;height:100%;object-fit:cover}
-.prow h3{font-size:clamp(18px,1.7vw,24px)}
-.prow .tag{display:block;font-size:13px;margin-bottom:6px;opacity:.7}
-.prow p{font-size:16px}
-.prow ul{list-style:none;margin-top:10px;font-size:16px}
-.prow li::before{content:"· "}
-.prow .plink{display:inline-block;margin-top:12px;font-size:14px;border-bottom:1.5px solid currentColor;padding-bottom:1px;transition:opacity .3s var(--ease)}
-.prow .plink:hover{opacity:.6}
-@media (max-width:860px){.prow{grid-template-columns:1fr}.prow .thumb{max-width:340px}}
+/* ---------- PACKAGES: карточки (b2b «Turn art into influence») ---------- */
+.packages h2{font-size:clamp(30px,4vw,62px);max-width:18ch}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px);margin-top:clamp(40px,6vh,70px)}
+.card .thumb{aspect-ratio:4/3;border-radius:12px;overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.card:hover .thumb img{transform:scale(1.04)}
+.card .tag{display:block;font-size:13px;margin:18px 0 6px;opacity:.65}
+.card h3{font-size:clamp(20px,2vw,28px)}
+.card p{margin-top:10px;font-size:16px;opacity:.85}
+.card ul{list-style:none;margin-top:12px;font-size:15px}
+.card li{padding:7px 0;border-top:1px solid var(--line-l)}
+.card .plink{display:inline-block;margin-top:16px;font-size:14px;border-bottom:1.5px solid currentColor;padding-bottom:1px;transition:opacity .3s var(--ease)}
+.card .plink:hover{opacity:.6}
+@media (max-width:900px){.cards{grid-template-columns:1fr}.card .thumb{aspect-ratio:16/9}}
 
-/* ---------- FORMATS list (большой список с ↗) ---------- */
 .biglist{list-style:none;margin-top:clamp(36px,6vh,64px)}
 .biglist a{display:inline-block;font-size:clamp(28px,4vw,62px);line-height:1.18;transition:opacity .3s var(--ease)}
 .biglist a:hover{opacity:.55}
 
+/* ---------- PROCESS (b2b «Our process») ---------- */
+.process-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:end}
+.process-head p{font-size:17px;max-width:42ch}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,40px);margin-top:clamp(50px,9vh,100px);counter-reset:s}
+.step{border-top:1.5px solid var(--line-l);padding-top:20px}
+.step h3{font-size:clamp(18px,1.7vw,24px)}
+.step p{margin-top:12px;font-size:15px;opacity:.85}
+@media (max-width:900px){.process-head{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
 /* ---------- CONTACT ---------- */
-.contact-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);margin-top:clamp(10px,2vh,20px)}
-.contact .lead{margin-top:26px;max-width:42ch;font-size:clamp(17px,1.4vw,20px)}
-.form{display:flex;flex-direction:column;border-top:1.5px solid var(--line-d)}
-.field{border-bottom:1.5px solid var(--line-d);padding:18px 0 12px;display:flex;flex-direction:column;gap:6px}
-.field label{font-size:13px;opacity:.75}
-.field input{background:transparent;border:0;outline:none;color:var(--ink-d);font:inherit;font-size:18px;padding:2px 0;border-bottom:1.5px solid transparent;transition:border-color .3s var(--ease)}
-.field input:focus{border-bottom-color:var(--ink-d)}
-.field input::placeholder{color:rgba(246,246,246,.4)}
-.btn{margin-top:30px;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;cursor:pointer;
-  background:var(--light);color:var(--dark);border:0;border-radius:999px;padding:16px 30px;
-  font:inherit;font-variation-settings:"wdth" 151;font-weight:900;font-size:14px;text-transform:uppercase;transition:opacity .3s var(--ease)}
-.btn:hover{opacity:.85}
-.form-note{font-size:13px;opacity:.6;margin-top:16px}
-.form-ok{display:none;border:1.5px solid var(--line-d);border-radius:var(--radius);padding:24px;margin-top:30px}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);margin-top:22px}
+.contact .lead{margin-top:26px;max-width:42ch;font-size:clamp(17px,1.4vw,20px);color:rgba(246,246,246,.88)}
+.contact .lead a{border-bottom:1px solid currentColor}
+.form{display:flex;flex-direction:column;gap:12px}
+.field input{width:100%;background:var(--dark-2);border:1.5px solid transparent;border-radius:var(--radius);outline:none;color:var(--ink-d);font:inherit;font-size:17px;padding:17px 18px;transition:border-color .3s var(--ease)}
+.field input:focus{border-color:rgba(246,246,246,.55)}
+.field input::placeholder{color:rgba(246,246,246,.45)}
+.field input.bad{border-color:#e07a72}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.form .pill{margin-top:14px;align-self:flex-start;color:var(--ink-d)}
+.form-note{font-size:13px;color:rgba(246,246,246,.55);margin-top:4px}
+.form-ok{display:none;background:var(--dark-2);border-radius:var(--radius);padding:24px;margin-top:6px}
 .form-ok .lbl{display:block;margin-bottom:8px}
 .person{display:flex;gap:20px;align-items:center;margin-top:clamp(40px,8vh,90px)}
 .person .thumb{width:96px;height:96px;border-radius:var(--radius);overflow:hidden;flex:none}
@@ -166,50 +192,62 @@ img{display:block;max-width:100%}
 .person a{display:block;margin-top:4px;font-size:15px;opacity:.9}
 @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
 
-/* ---------- FOOTER ---------- */
-.footer{padding:26px var(--pad);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px}
-.footer a:hover{opacity:.6}
+/* ---------- FOOTER (b2b: гигантский логотип) ---------- */
+.footer{overflow:hidden;padding:clamp(40px,8vh,90px) var(--pad) 28px;border-top:1.5px solid var(--line-d)}
+.wordmark{display:block;font-variation-settings:"wdth" 151,"opsz" 144;font-weight:1000;text-transform:uppercase;font-size:9.6vw;line-height:.82;letter-spacing:-.02em;text-align:center;white-space:nowrap}
+.foot-row{margin-top:clamp(30px,5vh,50px);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--muted-d)}
+.foot-row a:hover{color:var(--ink-d)}
 </style>
 </head>
 <body>
 
-<!-- HERO (слайд 1) -->
-<header class="hero light" id="top">
-  <div class="hero-top">
-    <a class="brand" href="#top">Screenplay</a>
-    <a class="hero-cta" href="#contact">Медиаплан →</a>
-  </div>
-  <div class="float f1" aria-hidden="true"><img src="assets/set-stage.jpg" alt=""></div>
-  <div class="float f2" aria-hidden="true"><img src="assets/projector-beam.jpg" alt=""></div>
-  <div class="float f3" aria-hidden="true"><img src="assets/hero-cinema.jpg" alt="" style="object-position:30% 50%"></div>
-  <div class="float f4" aria-hidden="true"><img src="assets/projector-beam.jpg" alt="" style="object-position:80% 40%"></div>
-  <h1 class="h rv">Реклама, которая работает</h1>
-  <p class="hero-sub rv rv-d1">Спонсорство тайтлов, интеграции в шоу и размещение на первом экране — в премиальном видеоконтенте, который зритель выбирает сам.</p>
-  <p class="hero-year lbl rv rv-d2">Кино · Сериалы · Шоу</p>
+<header class="header" id="header">
+  <a class="brand" href="#top">Screenplay</a>
+  <nav class="nav" aria-label="Main">
+    <a href="#formats">Formats</a>
+    <a href="#packages">Packages</a>
+    <a href="#process">Process</a>
+  </nav>
+  <a class="pill" href="#contact">Contact us</a>
 </header>
 
-<!-- INDEX (слайд 2) -->
-<section class="index dark" aria-label="Содержание">
-  <p class="lbl">Содержание</p>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"><img src="assets/hero-cinema.jpg" alt=""></div>
+  <div class="hero-in">
+    <h1 class="h rv">Advertising that works</h1>
+    <p class="hero-sub rv rv-d1">Title sponsorships, show integrations and first-screen placements — inside premium video content that viewers choose for themselves.</p>
+    <div class="hero-ctas rv rv-d2">
+      <a class="pill solid" href="#contact">Get a media plan →</a>
+      <a class="pill" href="#formats">Learn more</a>
+    </div>
+  </div>
+  <p class="hero-tag lbl rv rv-d3">Film · Series · Shows</p>
+</section>
+
+<!-- INDEX -->
+<section class="index dark" aria-label="Contents">
+  <p class="lbl">Index</p>
   <ol>
-    <li><a href="#about">О платформе</a></li>
-    <li><a href="#formats">Форматы</a></li>
-    <li><a href="#premier">Премьеры</a></li>
-    <li><a href="#metrics">Метрики</a></li>
-    <li><a href="#packages">Пакеты</a></li>
-    <li><a href="#contact">Контакты</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#formats">Formats</a></li>
+    <li><a href="#premier">Premieres</a></li>
+    <li><a href="#metrics">Metrics</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ol>
 </section>
 
 <!-- ABOUT -->
 <section class="slide light about" id="about">
-  <nav class="side" aria-label="Разделы"></nav>
+  <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <h2 class="h rv">Зритель пришёл за историей. Бренд — часть сюжета, а не помеха</h2>
+    <h2 class="h rv">Viewers came for the story. Your brand becomes part of the plot, not an interruption</h2>
     <div class="lead">
-      <p class="rv"><b>Пре-ролл пропускают,</b> потому что он мешает. Баннерную слепоту не лечат креативнее баннеры. Мы предлагаем третий путь — размещение внутри контента, который выбран зрителем.</p>
-      <p class="rv rv-d1"><b>Зритель смотрит кино</b> в полный экран, без второй вкладки и без ленты рядом. Это внимание, которое сегодня дороже охвата: его нельзя купить аукционом, его можно только заслужить контекстом.</p>
-      <p class="rv rv-d2"><b>Каждое размещение</b> согласуется с тайтлом и сценой. Ваш бренд получает ассоциации с историей, а не случайную подборку площадок.</p>
+      <p class="rv"><b>Pre-rolls get skipped</b> because they get in the way. Banner blindness isn't cured by more creative banners. We offer a third way — placement inside content the viewer has chosen.</p>
+      <p class="rv rv-d1"><b>Viewers watch films</b> full-screen, with no second tab and no feed alongside. That kind of attention is worth more than reach today: you can't buy it at auction — you can only earn it through context.</p>
+      <p class="rv rv-d2"><b>Every placement</b> is matched to the title and the scene. Your brand gains associations with a story, not a random mix of placements.</p>
     </div>
   </div>
   <div class="float f1" aria-hidden="true"><img src="assets/hero-cinema.jpg" alt=""></div>
@@ -218,150 +256,210 @@ img{display:block;max-width:100%}
 </section>
 
 <!-- FORMATS -->
-<section class="slide light formats" id="formats" style="border-top:1.5px solid var(--line-l)">
-  <nav class="side" aria-label="Разделы"></nav>
+<section class="slide dark formats" id="formats">
+  <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <p class="lbl rv">Форматы размещения. Пять рабочих механик</p>
-    <div class="fgrid">
-      <div class="fitem rv">
-        <span class="ficon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M8 5l2 4M14 5l2 4"/></svg></span>
-        <div><h3 class="h">Спонсорство тайтлов</h3><p>Ваш бренд — официальный партнёр фильма или сериала. Логотип в заставке, упоминание в описании, приоритет во всех материалах тайтла.</p></div>
-      </div>
-      <div class="fitem rv rv-d1">
-        <span class="ficon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="9" r="4"/><path d="M5 20c1.2-3.5 4-5 7-5s5.8 1.5 7 5"/></svg></span>
-        <div><h3 class="h">Интеграции в шоу</h3><p>Нативное присутствие продукта в кадре и сценарии. Съёмочная команда платформы встраивает бренд в историю без ощущения «вставки».</p></div>
-      </div>
-      <div class="fitem rv">
-        <span class="ficon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M10 8.5v4l3.5-2z"/></svg></span>
-        <div><h3 class="h">Первый экран</h3><p>Размещение в момент выбора контента — до старта просмотра, когда внимание зрителя максимально. Ваш бренд рядом с решением, а не после него.</p></div>
-      </div>
-      <div class="fitem rv rv-d1">
-        <span class="ficon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M16.5 13.5l.9 1.9 2.1.3-1.5 1.5.4 2.1-1.9-1-1.9 1 .4-2.1-1.5-1.5 2.1-.3z"/></svg></span>
-        <div><h3 class="h">Брендированные подборки</h3><p>Тематические коллекции под вашу кампанию: «Вечер для двоих», «Драйв и скорость». Кураторская логика платформы + ваш бренд как ведущий.</p></div>
-      </div>
-      <div class="fitem rv">
-        <span class="ficon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span>
-        <div><h3 class="h">Product placement</h3><p>Присутствие продукта в уже снятых тайтлах из каталога платформы. Быстрый запуск без производственного цикла — размещение за недели, а не месяцы.</p></div>
+    <div class="formats-head">
+      <h2 class="h rv">One platform. Five ways in</h2>
+      <p class="rv rv-d1">Every format is built around your goal. Tell us your ambition — we'll match it with the titles that fit.</p>
+    </div>
+    <div class="tabs rv" role="tablist" aria-label="Placement formats" id="tabs"></div>
+    <div class="tabpanel rv" id="tabpanel" role="tabpanel" aria-live="polite">
+      <img id="tabimg" src="assets/hero-cinema.jpg" alt="">
+      <div class="tabcard" id="tabcard">
+        <span class="num" id="tabnum"></span>
+        <h3 class="h" id="tabtitle"></h3>
+        <p id="tabtext"></p>
+        <a class="pill" href="#contact">Discuss this format →</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PREMIERE -->
-<section class="slide dark premier" id="premier">
-  <nav class="side" aria-label="Разделы"></nav>
+<section class="slide light premier" id="premier">
+  <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <p class="lbl rv">Премьерные окна</p>
+    <p class="lbl rv">Premiere windows</p>
     <div class="prem-stack">
       <span class="thumb rv"><img src="assets/set-stage.jpg" alt=""></span>
-      <h3 class="h rv">Рядом с главными релизами сезона</h3>
+      <h3 class="h rv">Next to the season's biggest releases</h3>
       <span class="thumb rv"><img src="assets/hero-cinema.jpg" alt=""></span>
-      <h3 class="h rv">Премьера концентрирует внимание</h3>
+      <h3 class="h rv">Premieres concentrate attention</h3>
       <span class="thumb rv"><img src="assets/projector-beam.jpg" alt=""></span>
-      <h3 class="h rv">От анонса до финала</h3>
+      <h3 class="h rv">From announcement to finale</h3>
     </div>
-    <p class="prem-text rv">Премьера концентрирует внимание аудитории как ничто другое. Сезонные пакеты закрепляют ваш бренд за ключевыми релизами платформы — от анонса до финала.</p>
+    <p class="prem-text rv">Nothing concentrates audience attention like a premiere. Seasonal packages anchor your brand to the platform's key releases — from announcement to finale.</p>
   </div>
 </section>
 
 <!-- METRICS -->
-<section class="slide dark metrics" id="metrics" style="border-top:1.5px solid var(--line-d)">
-  <nav class="side" aria-label="Разделы"></nav>
+<section class="slide dark metrics" id="metrics">
+  <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <p class="lbl rv">Отчётность без «воды»</p>
-    <h2 class="h rv rv-d1" style="margin-top:22px">Каждый рубль — измерим</h2>
+    <p class="lbl rv">Reporting without the fluff</p>
+    <h2 class="h rv rv-d1" style="margin-top:22px">Every dollar, measured</h2>
     <div class="mgrid">
-      <div class="mcell rv"><h3 class="h">Досмотры</h3><p>Не показы, а досмотренные контакты с вашим размещением. Вы платите за внимание, а не за загрузку плеера.</p></div>
-      <div class="mcell rv rv-d1"><h3 class="h">Вовлечение</h3><p>Реакции на интеграции: переходы, сохранения, повторные просмотры сцен с продуктом бренда.</p></div>
-      <div class="mcell rv"><h3 class="h">Brand lift</h3><p>Изменение узнаваемости и отношения к бренду среди зрителей кампании — замер до и после размещения.</p></div>
-      <div class="mcell rv rv-d1"><h3 class="h">Полный цикл</h3><p>Медиаплан → производство интеграции → запуск → отчёт. Одна команда на все этапы кампании.</p></div>
+      <div class="mcell rv"><h3 class="h">Completed views</h3><p>Not impressions — completed contacts with your placement. You pay for attention, not for a player load.</p></div>
+      <div class="mcell rv rv-d1"><h3 class="h">Engagement</h3><p>Responses to integrations: click-throughs, saves and rewatches of scenes featuring your product.</p></div>
+      <div class="mcell rv"><h3 class="h">Brand lift</h3><p>Change in awareness and brand perception among campaign viewers — measured before and after the placement.</p></div>
+      <div class="mcell rv rv-d1"><h3 class="h">Full cycle</h3><p>Media plan → integration production → launch → report. One team for every stage of the campaign.</p></div>
     </div>
   </div>
 </section>
 
 <!-- PACKAGES -->
 <section class="slide light packages" id="packages">
-  <nav class="side" aria-label="Разделы"></nav>
+  <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <p class="lbl rv">Пакеты сотрудничества. От размещения до эксклюзива</p>
-    <div class="plist">
-      <div class="prow rv">
-        <span class="thumb"><img src="assets/hero-cinema.jpg" alt=""></span>
-        <div><span class="tag">Пакет 01</span><h3 class="h">Тайтл</h3></div>
-        <div><p>Спонсорство одного фильма или сериала. Точечное присутствие рядом с контентом, который резонирует с аудиторией бренда.</p>
-          <ul><li>Заставка и описание тайтла</li><li>Размещение на первом экране</li><li>Отчёт по досмотрам</li></ul>
-          <a class="plink" href="#contact">Обсудить →</a></div>
-      </div>
-      <div class="prow rv">
-        <span class="thumb"><img src="assets/set-stage.jpg" alt=""></span>
-        <div><span class="tag">Пакет 02</span><h3 class="h">Сезон</h3></div>
-        <div><p>Сезонная экспансия: закрепление за премьерным окном и регулярные интеграции в шоу платформы на весь сезон.</p>
-          <ul><li>Премьерное окно сезона</li><li>Интеграции в 2+ шоу</li><li>Brand lift-замер</li></ul>
-          <a class="plink" href="#contact">Обсудить →</a></div>
-      </div>
-      <div class="prow rv">
-        <span class="thumb"><img src="assets/projector-beam.jpg" alt=""></span>
-        <div><span class="tag">Пакет 03</span><h3 class="h">Эксклюзив</h3></div>
-        <div><p>Категорийное партнёрство: ваш бренд — единственный представитель категории на платформе. Максимум ассоциаций, максимум присутствия.</p>
-          <ul><li>Эксклюзив категории</li><li>Производство интеграций</li><li>Сквозная отчётность</li></ul>
-          <a class="plink" href="#contact">Обсудить →</a></div>
-      </div>
+    <p class="lbl rv">Partnership packages</p>
+    <h2 class="h rv rv-d1" style="margin-top:22px">From placement to exclusivity</h2>
+    <div class="cards">
+      <article class="card rv">
+        <div class="thumb"><img src="assets/hero-cinema.jpg" alt=""></div>
+        <span class="tag">Package 01</span>
+        <h3 class="h">Title</h3>
+        <p>Sponsorship of a single film or series. Targeted presence alongside content that resonates with your audience.</p>
+        <ul><li>Opening credits and title description</li><li>First-screen placement</li><li>Completed-view report</li></ul>
+        <a class="plink" href="#contact">Discuss →</a>
+      </article>
+      <article class="card rv rv-d1">
+        <div class="thumb"><img src="assets/set-stage.jpg" alt=""></div>
+        <span class="tag">Package 02</span>
+        <h3 class="h">Season</h3>
+        <p>Seasonal expansion: anchoring to a premiere window plus regular integrations across the platform's shows all season long.</p>
+        <ul><li>Season premiere window</li><li>Integrations in 2+ shows</li><li>Brand lift study</li></ul>
+        <a class="plink" href="#contact">Discuss →</a>
+      </article>
+      <article class="card rv rv-d2">
+        <div class="thumb"><img src="assets/projector-beam.jpg" alt=""></div>
+        <span class="tag">Package 03</span>
+        <h3 class="h">Exclusive</h3>
+        <p>Category partnership: your brand is the only representative of its category on the platform. Maximum association, maximum presence.</p>
+        <ul><li>Category exclusivity</li><li>Integration production</li><li>End-to-end reporting</li></ul>
+        <a class="plink" href="#contact">Discuss →</a>
+      </article>
     </div>
 
-    <p class="lbl rv" style="margin-top:clamp(70px,12vh,130px)">Где появляется бренд</p>
+    <p class="lbl rv" style="margin-top:clamp(70px,12vh,130px)">Where your brand appears</p>
     <ul class="biglist">
-      <li class="rv"><a class="h" href="#formats">Спонсорство тайтлов ↗</a></li>
-      <li class="rv"><a class="h" href="#formats">Интеграции в шоу ↗</a></li>
-      <li class="rv"><a class="h" href="#formats">Первый экран ↗</a></li>
-      <li class="rv"><a class="h" href="#premier">Премьерные окна ↗</a></li>
-      <li class="rv"><a class="h" href="#formats">Брендированные подборки ↗</a></li>
+      <li class="rv"><a class="h" href="#formats">Title sponsorship ↗</a></li>
+      <li class="rv"><a class="h" href="#formats">Show integrations ↗</a></li>
+      <li class="rv"><a class="h" href="#formats">First screen ↗</a></li>
+      <li class="rv"><a class="h" href="#premier">Premiere windows ↗</a></li>
+      <li class="rv"><a class="h" href="#formats">Branded collections ↗</a></li>
       <li class="rv"><a class="h" href="#formats">Product placement ↗</a></li>
     </ul>
   </div>
 </section>
 
+<!-- PROCESS -->
+<section class="slide light process bt-l" id="process">
+  <nav class="side" aria-label="Sections"></nav>
+  <div class="slide-body">
+    <div class="process-head">
+      <h2 class="h rv">Our process</h2>
+      <p class="rv rv-d1">From the first brief to the final report, one team runs your campaign end to end.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv"><h3 class="h">1. Brief</h3><p>Tell us about your brand, your audience and what the campaign needs to achieve.</p></div>
+      <div class="step rv rv-d1"><h3 class="h">2. Media plan</h3><p>We match formats, titles and timing to your objectives and send you the plan.</p></div>
+      <div class="step rv rv-d2"><h3 class="h">3. Production</h3><p>The platform's crew builds the integration into the story — without the feel of an insert.</p></div>
+      <div class="step rv rv-d3"><h3 class="h">4. Launch &amp; report</h3><p>The campaign goes live, and you get reporting on completed views, engagement and brand lift.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="slide dark contact" id="contact">
-  <nav class="side" aria-label="Разделы"></nav>
+  <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <p class="lbl rv">Старт кампании</p>
-    <div class="contact-grid" style="margin-top:22px">
+    <p class="lbl rv">Start a campaign</p>
+    <div class="contact-grid">
       <div>
-        <h2 class="h rv">Соберём медиаплан под ваш бренд</h2>
-        <p class="lead rv rv-d1">Опишите задачу — вернёмся с предложением по форматам, тайтлам и таймингу в течение трёх рабочих дней. Без обязательств: сначала план, потом решение.</p>
+        <h2 class="h rv">Let's build a media plan for your brand</h2>
+        <p class="lead rv rv-d1">Describe your goal — within three business days we'll come back with a proposal covering formats, titles and timing. No commitment: plan first, decision later. Or drop us a line at <a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a>.</p>
         <div class="person rv rv-d2">
           <span class="thumb"><img src="assets/projector-beam.jpg" alt=""></span>
-          <div><span class="lbl">Команда Screenplay</span><a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a></div>
+          <div><span class="lbl">Screenplay team</span><a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a></div>
         </div>
       </div>
       <form class="form rv rv-d1" id="leadform" novalidate>
-        <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" type="text" placeholder="Как к вам обращаться" autocomplete="name"></div>
-        <div class="field"><label for="f-company">Компания</label><input id="f-company" name="company" type="text" placeholder="Бренд или агентство" autocomplete="organization"></div>
-        <div class="field"><label for="f-email">Рабочая почта</label><input id="f-email" name="email" type="email" placeholder="name@company.ru" autocomplete="email"></div>
-        <button class="btn" type="submit">Запросить медиаплан →</button>
-        <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.</p>
-        <div class="form-ok" id="formok" role="status"><span class="lbl">Заявка принята</span>Команда SCREENPLAY свяжется с вами в течение рабочего дня и пришлёт структуру медиаплана.</div>
+        <div class="field"><label class="sr" for="f-name">Name</label><input id="f-name" name="name" type="text" placeholder="Name" autocomplete="name"></div>
+        <div class="field"><label class="sr" for="f-company">Company</label><input id="f-company" name="company" type="text" placeholder="Company or agency" autocomplete="organization"></div>
+        <div class="field"><label class="sr" for="f-email">Work email</label><input id="f-email" name="email" type="email" placeholder="Work email" autocomplete="email"></div>
+        <button class="pill" type="submit">Request a media plan →</button>
+        <p class="form-note">By clicking the button, you agree to the processing of your personal data.</p>
+        <div class="form-ok" id="formok" role="status"><span class="lbl">Request received</span>The SCREENPLAY team will get in touch within one business day and send you an outline of the media plan.</div>
       </form>
     </div>
   </div>
 </section>
 
-<footer class="footer light">
-  <span>© 2026 SCREENPLAY — стриминговая платформа для брендов</span>
-  <span><a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a> · <a href="#top">Наверх ↑</a></span>
+<footer class="footer dark">
+  <span class="wordmark" aria-hidden="true">Screenplay</span>
+  <div class="foot-row">
+    <span>© 2026 SCREENPLAY — a streaming platform for brands</span>
+    <span><a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a> · <a href="#top">Back to top ↑</a></span>
+  </div>
 </footer>
 
 <script>
 (function(){
   "use strict";
-  /* мини-оглавление в каждой секции, как на слайдах презентации */
-  var items=[["about","О платформе"],["formats","Форматы"],["premier","Премьеры"],["metrics","Метрики"],["packages","Пакеты"],["contact","Контакты"]];
+
+  /* мини-оглавление в каждой секции */
+  var items=[["about","About"],["formats","Formats"],["premier","Premieres"],["metrics","Metrics"],["packages","Packages"],["process","Process"],["contact","Contact"]];
   document.querySelectorAll(".slide").forEach(function(sec){
     var nav=sec.querySelector(".side"); if(!nav)return;
     nav.innerHTML=items.map(function(it){
       return '<a href="#'+it[0]+'"'+(it[0]===sec.id?' class="on" aria-current="true"':'')+'>'+it[1]+'</a>';
     }).join("");
   });
+
+  /* шапка: прозрачная над hero, плотная при скролле */
+  var header=document.getElementById("header");
+  function onScroll(){ header.classList.toggle("solid", window.scrollY>40); }
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+
+  /* табы форматов */
+  var formats=[
+    {t:"Title sponsorship",img:"assets/hero-cinema.jpg",pos:"50% 50%",d:"Your brand becomes the official partner of a film or series: logo in the opening credits, a mention in the description, priority across all of the title's materials."},
+    {t:"Show integrations",img:"assets/set-stage.jpg",pos:"50% 50%",d:"Native product presence in the frame and in the script. The platform's crew builds the brand into the story without the feel of an insert."},
+    {t:"First screen",img:"assets/projector-beam.jpg",pos:"50% 50%",d:"Placement at the moment of choice — before playback starts, when viewer attention peaks. Your brand sits next to the decision, not after it."},
+    {t:"Branded collections",img:"assets/hero-cinema.jpg",pos:"20% 60%",d:"Themed collections built around your campaign: “Date Night”, “Speed & Drive”. The platform's curatorial logic, with your brand as the host."},
+    {t:"Product placement",img:"assets/set-stage.jpg",pos:"80% 40%",d:"Product presence in titles already filmed in the platform's catalogue. A fast launch with no production cycle — live in weeks, not months."}
+  ];
+  var tabs=document.getElementById("tabs"), img=document.getElementById("tabimg"), card=document.getElementById("tabcard");
+  var num=document.getElementById("tabnum"), title=document.getElementById("tabtitle"), text=document.getElementById("tabtext");
+  tabs.innerHTML=formats.map(function(f,i){
+    return '<button class="tab" role="tab" id="tab-'+i+'" aria-controls="tabpanel" aria-selected="'+(i===0)+'" tabindex="'+(i===0?0:-1)+'">'+f.t+'</button>';
+  }).join("");
+  var btns=tabs.querySelectorAll(".tab"), current=-1;
+  function show(i,focus){
+    if(i===current)return;
+    btns.forEach(function(b,j){ b.setAttribute("aria-selected",j===i); b.tabIndex=j===i?0:-1; });
+    if(focus)btns[i].focus();
+    var f=formats[i];
+    var apply=function(){
+      img.src=f.img; img.style.objectPosition=f.pos;
+      num.textContent="0"+(i+1)+" / 0"+formats.length;
+      title.textContent=f.t; text.textContent=f.d;
+      document.getElementById("tabpanel").setAttribute("aria-labelledby","tab-"+i);
+      card.classList.remove("fade"); img.style.opacity=1;
+    };
+    if(current<0){apply();}
+    else{ card.classList.add("fade"); img.style.opacity=.35; setTimeout(apply,220); }
+    current=i;
+  }
+  btns.forEach(function(b,i){ b.addEventListener("click",function(){show(i);}); });
+  tabs.addEventListener("keydown",function(e){
+    if(e.key==="ArrowRight"||e.key==="ArrowLeft"){
+      e.preventDefault();
+      var n=(current+(e.key==="ArrowRight"?1:-1)+formats.length)%formats.length; show(n,true);
+    }
+  });
+  show(0);
 
   /* появление при скролле */
   var rvs=Array.prototype.slice.call(document.querySelectorAll(".rv"));
@@ -385,7 +483,7 @@ img{display:block;max-width:100%}
     e.preventDefault();
     var f=form.elements;
     var name=f.name.value.trim(), company=f.company.value.trim(), email=f.email.value.trim();
-    var bad=function(el){ el.style.borderBottomColor="#e07a72"; setTimeout(function(){el.style.borderBottomColor="";},1600); };
+    var bad=function(el){ el.classList.add("bad"); el.focus(); setTimeout(function(){el.classList.remove("bad");},1600); };
     if(!name){bad(f.name);return;}
     if(!company){bad(f.company);return;}
     if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){bad(f.email);return;}
