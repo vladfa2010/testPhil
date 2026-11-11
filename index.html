@@ -3,21 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SCREENPLAY — advertising that works</title>
-<meta name="description" content="A streaming platform for brands: title sponsorships, show integrations and first-screen placements. B2B advertising inside premium video content.">
+<title>Private Art Encounters — CIFRA</title>
+<meta name="description" content="A curated series of art and gastronomy experiences for premium clients. Private dinners where contemporary media art, gastronomy and discovery come together — in Dubai and Abu Dhabi.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap" rel="stylesheet">
 <style>
 :root{
-  --light:#F6F6F6;
-  --dark:#393C43;
-  --dark-2:#2F3237;         /* поля формы, карточки на тёмном */
-  --ink-l:#393C43;
-  --ink-d:#F6F6F6;
-  --muted-d:rgba(246,246,246,.62);
-  --line-l:rgba(57,60,67,.22);
-  --line-d:rgba(246,246,246,.28);
+  --light:#F7F7F7;
+  --dark:#171718;
+  --dark-2:#232325;          /* поля формы, карточки на тёмном */
+  --cream:#EDE2BE;           /* акцент заголовков на тёмном (из презентации) */
+  --ink-l:#171718;
+  --ink-d:#F7F7F7;
+  --muted-d:rgba(247,247,247,.62);
+  --muted-l:rgba(23,23,24,.66);
+  --line-l:rgba(23,23,24,.18);
+  --line-d:rgba(247,247,247,.22);
   --radius:10px;
   --ease:cubic-bezier(.25,1,.5,1);
   --pad:clamp(20px,4vw,64px);
@@ -26,49 +28,50 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:var(--header)}
-body{
-  background:var(--light);color:var(--ink-l);
-  font-family:'Roboto Flex',system-ui,sans-serif;
-  font-variation-settings:"wdth" 104;
-  font-weight:400;font-size:18px;line-height:1.45;letter-spacing:.01em;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
+body{background:var(--light);color:var(--ink-l);font-family:'Roboto Flex',system-ui,sans-serif;font-variation-settings:"wdth" 104;font-weight:400;font-size:18px;line-height:1.45;letter-spacing:.01em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit}
-::selection{background:var(--dark);color:var(--light)}
+::selection{background:var(--cream);color:var(--dark)}
 :focus-visible{outline:2px solid currentColor;outline-offset:3px}
 
 .h{font-variation-settings:"wdth" 151,"opsz" 144;font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:-.005em}
 .lbl{font-variation-settings:"wdth" 151;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:.01em}
-.lead b{font-variation-settings:"wdth" 151;font-weight:900;text-transform:uppercase}
+.lead b{font-variation-settings:"wdth" 151;font-weight:900}
 
 .dark{background:var(--dark);color:var(--ink-d)}
+.dark .h{color:var(--cream)}
 .light{background:var(--light);color:var(--ink-l)}
 
-/* кнопки-«пилюли» как на b2b.cifra.com */
+/* текст, который ещё предстоит написать */
+.tbd{position:relative;border:1.5px dashed currentColor;border-radius:var(--radius);padding:22px;opacity:.55}
+.tbd::before{content:"Text TBD";position:absolute;top:-10px;left:16px;padding:0 8px;font-size:11px;font-variation-settings:"wdth" 151;font-weight:900;text-transform:uppercase;background:var(--light)}
+.dark .tbd::before{background:var(--dark)}
+
 .pill{display:inline-flex;align-items:center;gap:10px;border:1.5px solid currentColor;border-radius:999px;padding:12px 26px;font-size:16px;cursor:pointer;background:transparent;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
 .pill:hover{background:var(--ink-d);color:var(--dark);border-color:var(--ink-d)}
 .pill.solid{background:var(--ink-d);color:var(--dark);border-color:var(--ink-d)}
 .pill.solid:hover{background:transparent;color:var(--ink-d)}
-.light .pill:hover{background:var(--dark);color:var(--light);border-color:var(--dark)}
+.tagpill{display:inline-block;border:1px solid rgba(247,247,247,.55);border-radius:999px;padding:6px 14px;font-size:13px}
 
 .rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.in{opacity:1;transform:none}
 .rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
-/* ---------- HEADER (b2b) ---------- */
-.header{position:fixed;inset:0 0 auto 0;height:var(--header);z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--pad);color:var(--ink-d);transition:background .35s var(--ease),backdrop-filter .35s var(--ease)}
-.header.solid{background:rgba(57,60,67,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.brand{font-variation-settings:"wdth" 151;font-weight:900;font-size:20px;letter-spacing:.04em;text-transform:uppercase;justify-self:start}
+/* ---------- HEADER ---------- */
+.header{position:fixed;inset:0 0 auto 0;height:var(--header);z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--pad);color:var(--ink-d);transition:background .35s var(--ease)}
+.header.solid{background:rgba(23,23,24,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.brand{justify-self:start;display:flex;align-items:baseline;gap:14px}
+.brand b{font-variation-settings:"wdth" 151;font-weight:900;font-size:20px;letter-spacing:.04em}
+.brand span{font-size:13px;opacity:.75}
 .nav{display:flex;gap:26px;font-size:15px}
 .nav a{opacity:.9;transition:opacity .3s var(--ease)}
 .nav a:hover{opacity:.55}
 .header .pill{justify-self:end;padding:9px 20px;font-size:14px}
-@media (max-width:820px){.nav{display:none}.header{grid-template-columns:1fr auto}}
+@media (max-width:900px){.nav{display:none}.header{grid-template-columns:1fr auto}.brand span{display:none}}
 
-/* ---------- слайд-секция с мини-оглавлением ---------- */
+/* ---------- слайд с мини-оглавлением ---------- */
 .slide{position:relative;display:grid;grid-template-columns:var(--side) minmax(0,1fr);padding:clamp(28px,4vh,44px) var(--pad) clamp(80px,12vh,140px) 0;overflow:hidden}
 .side{position:sticky;top:calc(var(--header) + 24px);align-self:start;padding-left:var(--pad);font-size:14px;line-height:1.6;z-index:2}
 .side a{display:block;opacity:.9;transition:opacity .3s var(--ease),padding .3s var(--ease)}
@@ -77,124 +80,139 @@ button{font:inherit;color:inherit}
 .side a.on::after{content:"  →"}
 .slide-body{min-width:0}
 .bt-l{border-top:1.5px solid var(--line-l)}
-.bt-d{border-top:1.5px solid var(--line-d)}
 @media (max-width:900px){.slide{grid-template-columns:1fr;padding-left:var(--pad)}.side{display:none}}
+h2.h{font-size:clamp(30px,4vw,62px);max-width:18ch}
 
-.float{position:absolute;border-radius:var(--radius);overflow:hidden;z-index:1}
-.float img{width:100%;height:100%;object-fit:cover}
-
-/* ---------- HERO (b2b: полноэкранное фото, заголовок слева) ---------- */
-.hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;justify-content:flex-end;padding:calc(var(--header) + 40px) var(--pad) clamp(60px,10vh,110px);color:var(--ink-d);overflow:hidden;background:#1f2125}
-.hero-bg{position:absolute;inset:0;z-index:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:heroZoom 14s var(--ease) forwards}
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;justify-content:flex-end;padding:calc(var(--header) + 40px) var(--pad) clamp(50px,9vh,100px);color:var(--ink-d);overflow:hidden;background:#2a2733}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 70%;transform:scale(1.04);animation:heroZoom 14s var(--ease) forwards}
 @keyframes heroZoom{to{transform:scale(1)}}
-.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(31,33,37,.92) 0%,rgba(31,33,37,.55) 48%,rgba(31,33,37,.15) 100%),linear-gradient(0deg,rgba(31,33,37,.7) 0%,transparent 45%)}
-.hero-in{position:relative;z-index:1;max-width:1100px}
-.hero h1{font-size:clamp(30px,8.2vw,124px);max-width:11ch}
-.hero-sub{margin-top:24px;max-width:44ch;font-size:clamp(16px,1.4vw,20px);color:rgba(246,246,246,.85)}
-.hero-ctas{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
-.hero-tag{position:absolute;right:var(--pad);bottom:clamp(60px,10vh,110px);z-index:1}
-@media (max-width:700px){.hero-tag{display:none}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,23,24,.55) 0%,rgba(23,23,24,.05) 35%,rgba(23,23,24,.05) 55%,rgba(23,23,24,.75) 100%)}
+.hero-in{position:relative;z-index:1}
+.hero h1{font-size:clamp(32px,9vw,150px);color:var(--ink-d);max-width:11ch}
+.hero-side{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,60px);align-items:end;margin-top:clamp(24px,4vh,40px)}
+.hero-side p{max-width:30ch;font-size:clamp(17px,1.5vw,22px);font-variation-settings:"wdth" 151;font-weight:800;line-height:1.2}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.hero-ctas{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.hero-eyebrow{position:relative;z-index:1;margin-bottom:22px}
+.hero-act{display:flex;flex-direction:column;align-items:flex-end}
+.hero-tags{justify-content:flex-end}
+@media (max-width:860px){.hero-side{grid-template-columns:1fr}.hero-act{align-items:flex-start}.hero-tags{justify-content:flex-start}}
 
-/* ---------- INDEX (слайд содержания) ---------- */
+/* ---------- INDEX ---------- */
 .index{min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(30px,5vh,56px);padding:clamp(50px,8vh,80px) var(--pad) clamp(70px,10vh,110px)}
 .index ol{list-style:none;text-align:center}
 .index li a{display:inline-block;font-size:clamp(26px,3.4vw,48px);line-height:1.3;transition:opacity .3s var(--ease)}
 .index li a:hover{opacity:.55}
 
-/* ---------- ABOUT ---------- */
-.about h2{font-size:clamp(30px,4vw,62px);max-width:20ch}
-.about .lead{margin-top:clamp(140px,22vh,230px);max-width:40ch;font-size:clamp(19px,1.9vw,30px);line-height:1.3}
-.about .lead p+p{margin-top:1.1em}
-.about .f1{width:clamp(140px,16vw,260px);aspect-ratio:16/9;left:58%;top:clamp(300px,36vh,360px)}
-.about .f2{width:clamp(70px,7vw,110px);aspect-ratio:3/4;left:-20px;top:58%}
-.about .f3{width:clamp(90px,10vw,170px);aspect-ratio:16/12;right:-20px;top:55%}
-@media (max-width:900px){.about .f2,.about .f3{display:none}.about .f1{position:relative;left:auto;top:auto;margin-top:40px}.about .lead{margin-top:40px}}
+/* ---------- ACCESS ---------- */
+.access .lead{max-width:34ch;font-size:clamp(21px,2.2vw,34px);line-height:1.25}
+.access .lead p+p{margin-top:.9em}
+.benefits{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,5vw,80px);margin-top:clamp(70px,12vh,140px);align-items:start}
+.benefits h2.h{font-size:clamp(28px,3.2vw,50px)}
+.blist{list-style:none}
+.blist li{border-top:1.5px solid var(--line-l);padding:18px 0 22px}
+.blist h3{font-size:clamp(16px,1.3vw,19px)}
+.blist p{margin-top:6px;font-size:16px;color:var(--muted-l);max-width:44ch}
+.access .f1{width:clamp(120px,13vw,220px);aspect-ratio:1;right:var(--pad);top:clamp(40px,7vh,80px)}
+@media (max-width:900px){.benefits{grid-template-columns:1fr}.access .f1{display:none}}
+.float{position:absolute;border-radius:var(--radius);overflow:hidden;z-index:1}
+.float img{width:100%;height:100%;object-fit:cover}
 
-/* ---------- FORMATS: табы-«пилюли» (b2b «Our products») ---------- */
-.formats h2,.metrics h2,.contact h2,.process h2{font-size:clamp(30px,4vw,62px);max-width:18ch}
-.formats-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
-.formats-head p{max-width:36ch;font-size:16px;color:var(--muted-d)}
-.tabs{display:inline-flex;flex-wrap:wrap;gap:4px;margin-top:clamp(30px,5vh,50px);padding:5px;border-radius:999px;background:var(--dark-2)}
-.tab{border:0;background:transparent;border-radius:999px;padding:11px 20px;font-size:14px;cursor:pointer;color:var(--ink-d);font-variation-settings:"wdth" 151;font-weight:800;text-transform:uppercase;transition:background .3s var(--ease),color .3s var(--ease)}
-.tab:hover{background:rgba(246,246,246,.08)}
-.tab[aria-selected="true"]{background:var(--light);color:var(--dark)}
-.tabpanel{position:relative;margin-top:22px;border-radius:14px;overflow:hidden;aspect-ratio:16/7;min-height:380px;background:#222}
-.tabpanel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s var(--ease)}
-.tabcard{position:absolute;left:22px;top:22px;max-width:380px;padding:24px;border-radius:var(--radius);background:rgba(47,50,55,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
-.tabcard .num{display:block;font-size:13px;color:var(--muted-d);margin-bottom:10px}
-.tabcard h3{font-size:clamp(20px,2vw,28px);margin-bottom:12px}
-.tabcard p{font-size:16px;color:rgba(246,246,246,.86)}
-.tabcard .pill{margin-top:20px;padding:9px 20px;font-size:14px}
-.fade{opacity:0!important;transform:translateY(8px)}
-@media (max-width:640px){.tabpanel{aspect-ratio:auto;min-height:520px}.tabcard{left:12px;right:12px;top:auto;bottom:12px;max-width:none}}
+/* ---------- EXPERIENCE: 4 шага ---------- */
+.exp-lead{font-size:clamp(20px,2vw,30px);line-height:1.3;max-width:36ch}
+.steps4{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vh,70px) clamp(30px,5vw,80px);margin-top:clamp(60px,10vh,110px)}
+.step4 h3{display:flex;align-items:flex-start;gap:10px;font-size:clamp(34px,4.4vw,70px)}
+.step4 h3 sup{font-size:14px;line-height:1;border:1.5px solid currentColor;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;margin-top:.3em;flex:none;font-variation-settings:"wdth" 100}
+.step4 p{margin-top:12px;font-size:16px;color:var(--muted-d);max-width:38ch}
+.exp-note{margin-top:clamp(50px,8vh,90px);max-width:44ch;font-size:13px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted-d)}
+@media (max-width:640px){.steps4{grid-template-columns:1fr}}
 
-/* ---------- PREMIERE ---------- */
-.prem-stack{display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;margin-top:clamp(40px,7vh,80px)}
-.prem-stack h3{font-size:clamp(26px,3.3vw,52px);max-width:22ch}
-.prem-stack .thumb{width:clamp(70px,6vw,96px);aspect-ratio:3/2;border-radius:6px;overflow:hidden}
-.prem-stack .thumb img{width:100%;height:100%;object-fit:cover}
-.prem-text{margin:clamp(40px,6vh,70px) auto 0;max-width:46ch;text-align:center;font-size:clamp(17px,1.4vw,20px)}
+/* ---------- THEMES ---------- */
+.themes-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:end}
+.themes-head p{font-size:17px;max-width:44ch}
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px);margin-top:clamp(50px,8vh,90px)}
+.tcard .thumb{aspect-ratio:355/407;border-radius:var(--radius);overflow:hidden;background:#ddd}
+.tcard .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.tcard:hover .thumb img{transform:scale(1.04)}
+.tcard h3{margin-top:16px;font-size:clamp(16px,1.4vw,20px)}
+.tcard p{margin-top:6px;font-size:15px;color:var(--muted-l)}
+.statement{margin-top:clamp(70px,12vh,140px);font-size:clamp(26px,3.4vw,54px);max-width:24ch}
+@media (max-width:900px){.themes-head{grid-template-columns:1fr}.tgrid{grid-template-columns:1fr 1fr}}
 
-/* ---------- METRICS ---------- */
-.mgrid{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(30px,5vw,80px);margin-top:clamp(60px,12vh,140px);max-width:1000px}
-.mcell{border-top:1.5px solid var(--line-d);padding:22px 0 34px}
-.mcell h3{font-size:clamp(26px,3vw,46px)}
-.mcell p{margin-top:10px;font-size:15px;max-width:40ch;color:var(--muted-d)}
-@media (max-width:640px){.mgrid{grid-template-columns:1fr}}
+/* ---------- CONCEPT ---------- */
+.concept{background:var(--dark) url("assets/pae/concept.jpg") right center/cover no-repeat}
+.concept .lead{max-width:34ch;font-size:clamp(18px,1.6vw,24px);line-height:1.35;margin-top:clamp(30px,5vh,50px)}
+.concept .lead p+p{margin-top:1em}
+.concept .lead b{color:var(--cream)}
+.concept .lead .big{font-size:1.25em;text-transform:uppercase}
+@media (max-width:900px){.concept{background-image:linear-gradient(rgba(23,23,24,.82),rgba(23,23,24,.82)),url("assets/pae/concept.jpg")}}
 
-/* ---------- PACKAGES: карточки (b2b «Turn art into influence») ---------- */
-.packages h2{font-size:clamp(30px,4vw,62px);max-width:18ch}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px);margin-top:clamp(40px,6vh,70px)}
-.card .thumb{aspect-ratio:4/3;border-radius:12px;overflow:hidden}
-.card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-.card:hover .thumb img{transform:scale(1.04)}
-.card .tag{display:block;font-size:13px;margin:18px 0 6px;opacity:.65}
-.card h3{font-size:clamp(20px,2vw,28px)}
-.card p{margin-top:10px;font-size:16px;opacity:.85}
-.card ul{list-style:none;margin-top:12px;font-size:15px}
-.card li{padding:7px 0;border-top:1px solid var(--line-l)}
-.card .plink{display:inline-block;margin-top:16px;font-size:14px;border-bottom:1.5px solid currentColor;padding-bottom:1px;transition:opacity .3s var(--ease)}
-.card .plink:hover{opacity:.6}
-@media (max-width:900px){.cards{grid-template-columns:1fr}.card .thumb{aspect-ratio:16/9}}
+/* ---------- ARTWORKS ---------- */
+.art-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;padding:clamp(28px,4vh,44px) var(--pad) 24px}
+.art-head p{max-width:40ch;font-size:13px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted-l)}
+.agrid{display:grid;grid-template-columns:1fr 1fr}
+.atile{position:relative;aspect-ratio:16/8;overflow:hidden;background:#111}
+.atile img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.atile:hover img{transform:scale(1.03)}
+.atile::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 55%)}
+.atile.top::after{background:linear-gradient(180deg,rgba(0,0,0,.6),transparent 55%)}
+.atile.top figcaption{top:clamp(16px,2.4vw,32px);bottom:auto}
+.atile figcaption{position:absolute;left:clamp(16px,2.4vw,36px);bottom:clamp(16px,2.4vw,32px);z-index:1;color:#fff}
+.atile figcaption .h{font-size:clamp(16px,1.5vw,22px);color:#fff;max-width:16ch}
+.atile figcaption span{display:block;margin-top:6px;font-size:14px;opacity:.85}
+@media (max-width:760px){.agrid{grid-template-columns:1fr}}
 
-.biglist{list-style:none;margin-top:clamp(36px,6vh,64px)}
-.biglist a{display:inline-block;font-size:clamp(28px,4vw,62px);line-height:1.18;transition:opacity .3s var(--ease)}
-.biglist a:hover{opacity:.55}
+/* ---------- EXCLUSIVITY ---------- */
+.excl{display:grid;grid-template-columns:1fr 1fr;min-height:90vh}
+.excl-img{position:relative;overflow:hidden}
+.excl-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.excl-body{padding:clamp(40px,7vh,80px) var(--pad)}
+.excl-body h2.h{font-size:clamp(28px,3vw,48px);margin-top:22px}
+.excl .blist{margin-top:clamp(40px,6vh,60px)}
+@media (max-width:900px){.excl{grid-template-columns:1fr}.excl-img{aspect-ratio:16/10}}
 
-/* ---------- PROCESS (b2b «Our process») ---------- */
-.process-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:end}
-.process-head p{font-size:17px;max-width:42ch}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,40px);margin-top:clamp(50px,9vh,100px);counter-reset:s}
-.step{border-top:1.5px solid var(--line-l);padding-top:20px}
-.step h3{font-size:clamp(18px,1.7vw,24px)}
-.step p{margin-top:12px;font-size:15px;opacity:.85}
-@media (max-width:900px){.process-head{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.steps{grid-template-columns:1fr}}
+/* ---------- PROGRAMME ---------- */
+.prog{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);min-height:90vh}
+.prog-body{padding:clamp(40px,7vh,80px) var(--pad);display:flex;flex-direction:column;justify-content:space-between;gap:50px}
+.prog-body h2.h{font-size:clamp(30px,3.6vw,58px)}
+.prog-body .lead{margin-top:30px;max-width:36ch;font-size:clamp(17px,1.4vw,20px);color:rgba(247,247,247,.86)}
+.roles p{font-size:clamp(17px,1.6vw,24px);line-height:1.15}
+.roles p+p{margin-top:16px}
+.prog-img{position:relative;overflow:hidden}
+.prog-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media (max-width:900px){.prog{grid-template-columns:1fr}.prog-img{aspect-ratio:4/3}}
+
+/* ---------- WHO (TBD) ---------- */
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px);margin-top:clamp(40px,6vh,70px)}
+.wgrid .tbd h3{font-size:clamp(18px,1.6vw,22px)}
+.wgrid .tbd p{margin-top:10px;font-size:15px}
+@media (max-width:900px){.wgrid{grid-template-columns:1fr}}
 
 /* ---------- CONTACT ---------- */
 .contact-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);margin-top:22px}
-.contact .lead{margin-top:26px;max-width:42ch;font-size:clamp(17px,1.4vw,20px);color:rgba(246,246,246,.88)}
-.contact .lead a{border-bottom:1px solid currentColor}
+.contact h2.h{font-size:clamp(34px,5vw,80px);max-width:12ch}
+.contact .lead{margin-top:20px;font-size:clamp(18px,1.6vw,24px)}
 .form{display:flex;flex-direction:column;gap:12px}
-.field input{width:100%;background:var(--dark-2);border:1.5px solid transparent;border-radius:var(--radius);outline:none;color:var(--ink-d);font:inherit;font-size:17px;padding:17px 18px;transition:border-color .3s var(--ease)}
-.field input:focus{border-color:rgba(246,246,246,.55)}
-.field input::placeholder{color:rgba(246,246,246,.45)}
-.field input.bad{border-color:#e07a72}
+.field input,.field textarea{width:100%;background:var(--dark-2);border:1.5px solid transparent;border-radius:var(--radius);outline:none;color:var(--ink-d);font:inherit;font-size:17px;padding:17px 18px;transition:border-color .3s var(--ease);resize:vertical}
+.field input:focus,.field textarea:focus{border-color:rgba(247,247,247,.5)}
+.field input::placeholder,.field textarea::placeholder{color:rgba(247,247,247,.42)}
+.field .bad{border-color:#e07a72}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .form .pill{margin-top:14px;align-self:flex-start;color:var(--ink-d)}
-.form-note{font-size:13px;color:rgba(246,246,246,.55);margin-top:4px}
+.form-note{font-size:13px;color:rgba(247,247,247,.5);margin-top:4px}
 .form-ok{display:none;background:var(--dark-2);border-radius:var(--radius);padding:24px;margin-top:6px}
-.form-ok .lbl{display:block;margin-bottom:8px}
-.person{display:flex;gap:20px;align-items:center;margin-top:clamp(40px,8vh,90px)}
-.person .thumb{width:96px;height:96px;border-radius:var(--radius);overflow:hidden;flex:none}
-.person .thumb img{width:100%;height:100%;object-fit:cover}
-.person a{display:block;margin-top:4px;font-size:15px;opacity:.9}
+.form-ok .lbl{display:block;margin-bottom:8px;color:var(--cream)}
+.person{display:flex;gap:18px;align-items:center;margin-top:clamp(40px,8vh,90px)}
+.person img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:none}
+.person .lbl{color:var(--ink-d)}
+.person a{display:block;margin-top:4px;font-size:15px;opacity:.85}
 @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
 
-/* ---------- FOOTER (b2b: гигантский логотип) ---------- */
+/* ---------- FOOTER ---------- */
 .footer{overflow:hidden;padding:clamp(40px,8vh,90px) var(--pad) 28px;border-top:1.5px solid var(--line-d)}
-.wordmark{display:block;font-variation-settings:"wdth" 151,"opsz" 144;font-weight:1000;text-transform:uppercase;font-size:9.6vw;line-height:.82;letter-spacing:-.02em;text-align:center;white-space:nowrap}
+.wordmark{display:block;font-variation-settings:"wdth" 151,"opsz" 144;font-weight:1000;text-transform:uppercase;font-size:21.6vw;line-height:.8;letter-spacing:-.02em;text-align:center;white-space:nowrap;color:var(--ink-d)}
 .foot-row{margin-top:clamp(30px,5vh,50px);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--muted-d)}
 .foot-row a:hover{color:var(--ink-d)}
 </style>
@@ -202,170 +220,179 @@ button{font:inherit;color:inherit}
 <body>
 
 <header class="header" id="header">
-  <a class="brand" href="#top">Screenplay</a>
+  <a class="brand" href="#top"><b>CIFRA</b><span>Private Art Encounters</span></a>
   <nav class="nav" aria-label="Main">
-    <a href="#formats">Formats</a>
-    <a href="#packages">Packages</a>
-    <a href="#process">Process</a>
+    <a href="#experience">Experience</a>
+    <a href="#themes">Themes</a>
+    <a href="#artworks">Artworks</a>
+    <a href="#exclusivity">Exclusivity</a>
   </nav>
-  <a class="pill" href="#contact">Contact us</a>
+  <a class="pill" href="#contact">Get in touch</a>
 </header>
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-bg" aria-hidden="true"><img src="assets/hero-cinema.jpg" alt=""></div>
+  <div class="hero-bg" aria-hidden="true"><img src="assets/pae/hero.jpg" alt=""></div>
+  <p class="hero-eyebrow lbl rv">CIFRA presents</p>
   <div class="hero-in">
-    <h1 class="h rv">Advertising that works</h1>
-    <p class="hero-sub rv rv-d1">Title sponsorships, show integrations and first-screen placements — inside premium video content that viewers choose for themselves.</p>
-    <div class="hero-ctas rv rv-d2">
-      <a class="pill solid" href="#contact">Get a media plan →</a>
-      <a class="pill" href="#formats">Learn more</a>
+    <h1 class="h rv">Private Art Encounters</h1>
+    <div class="hero-side rv rv-d1">
+      <p>A curated series of art and gastronomy experiences for premium clients</p>
+      <div class="hero-act">
+      <div class="hero-tags">
+        <span class="tagpill">6–7 exclusive encounters a year</span>
+        <span class="tagpill">Dubai &amp; Abu Dhabi</span>
+        <span class="tagpill">30–40 guests per event</span>
+      </div>
+      <div class="hero-ctas">
+        <a class="pill solid" href="#contact">Plan an encounter →</a>
+        <a class="pill" href="#experience">Discover the experience</a>
+      </div>
+      </div>
     </div>
   </div>
-  <p class="hero-tag lbl rv rv-d3">Film · Series · Shows</p>
 </section>
 
 <!-- INDEX -->
 <section class="index dark" aria-label="Contents">
   <p class="lbl">Index</p>
   <ol>
-    <li><a href="#about">About</a></li>
-    <li><a href="#formats">Formats</a></li>
-    <li><a href="#premier">Premieres</a></li>
-    <li><a href="#metrics">Metrics</a></li>
-    <li><a href="#packages">Packages</a></li>
-    <li><a href="#process">Process</a></li>
+    <li><a href="#access">Cultural access</a></li>
+    <li><a href="#experience">The experience</a></li>
+    <li><a href="#themes">Themes</a></li>
+    <li><a href="#artworks">Artworks</a></li>
+    <li><a href="#exclusivity">Exclusivity</a></li>
+    <li><a href="#programme">The programme</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </section>
 
-<!-- ABOUT -->
-<section class="slide light about" id="about">
+<!-- ACCESS -->
+<section class="slide light access" id="access">
   <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <h2 class="h rv">Viewers came for the story. Your brand becomes part of the plot, not an interruption</h2>
+    <p class="lbl rv">From hospitality to cultural access</p>
+    <div class="lead" style="margin-top:28px">
+      <p class="rv">Premium hospitality is no longer only about where you dine, <b>but about what you gain access to.</b></p>
+      <p class="rv rv-d1">Private Art Encounters transforms a traditional client dinner into a <b>curated cultural experience</b> — combining private access, contemporary art, gastronomy and discovery.</p>
+    </div>
+    <div class="benefits">
+      <h2 class="h rv">The programme creates</h2>
+      <ul class="blist">
+        <li class="rv"><h3 class="h">Exclusive access</h3><p>Experiences that cannot simply be booked or visited independently.</p></li>
+        <li class="rv"><h3 class="h">Cultural relevance</h3><p>A contemporary programme connecting your brand with art, technology and culture.</p></li>
+        <li class="rv"><h3 class="h">Premium community</h3><p>An intimate environment designed for meaningful engagement with your most valued clients.</p></li>
+        <li class="rv"><h3 class="h">A recurring platform</h3><p>Not a one-off event, but a recognisable cultural programme throughout the year.</p></li>
+      </ul>
+    </div>
+  </div>
+  <div class="float f1" aria-hidden="true"><img src="assets/pae/flowers-close.jpg" alt=""></div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="slide dark experience" id="experience">
+  <nav class="side" aria-label="Sections"></nav>
+  <div class="slide-body">
+    <p class="lbl rv">The experience</p>
+    <p class="exp-lead rv rv-d1" style="margin-top:28px">Each encounter is designed as one continuous experience rather than a screening followed by dinner.</p>
+    <div class="steps4">
+      <div class="step4 rv"><h3 class="h"><sup>1</sup>Taste</h3><p>Guests are served a dish containing subtle clues — through ingredients, texture, temperature, origin or presentation.</p></div>
+      <div class="step4 rv rv-d1"><h3 class="h"><sup>2</sup>Interpret</h3><p>Guests exchange associations and try to anticipate the artwork they are about to experience.</p></div>
+      <div class="step4 rv"><h3 class="h"><sup>3</sup>Discover</h3><p>The artwork is revealed, transforming the space through media art and projection.</p></div>
+      <div class="step4 rv rv-d1"><h3 class="h"><sup>4</sup>Continue</h3><p>The dinner progresses, gradually revealing a curated artistic narrative throughout the evening.</p></div>
+    </div>
+    <p class="exp-note rv">2–3 artistic reveals can be integrated throughout one dinner, creating a natural rhythm without interrupting the social experience.</p>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="slide light themes" id="themes">
+  <nav class="side" aria-label="Sections"></nav>
+  <div class="slide-body">
+    <div class="themes-head">
+      <div><p class="lbl rv">A different world each time</p><h2 class="h rv rv-d1" style="margin-top:22px">Four curatorial themes</h2></div>
+      <p class="rv rv-d2">Every theme becomes the curatorial starting point for the artworks, gastronomic concept, and overall narrative of the evening.</p>
+    </div>
+    <div class="tgrid">
+      <article class="tcard rv"><div class="thumb"><img src="assets/pae/theme-nature.jpg" alt="Installation combining a living plant with laboratory equipment"></div><h3 class="h">Nature &amp; Technology</h3><p>Where organic systems meet digital intelligence.</p></article>
+      <article class="tcard rv rv-d1"><div class="thumb"><img src="assets/pae/theme-human.jpg" alt="Robotic sculpture with a screen showing a face"></div><h3 class="h">Human &amp; Machine</h3><p>Exploring our evolving relationship with technology.</p></article>
+      <article class="tcard rv rv-d2"><div class="thumb"><img src="assets/pae/theme-city.jpg" alt="Robotic arms holding a garment"></div><h3 class="h">Future of the City</h3><p>New ways of imagining how we live, move and connect.</p></article>
+      <article class="tcard rv rv-d3"><div class="thumb"><img src="assets/pae/theme-materials.jpg" alt="Stone sculpture with an embedded screen"></div><h3 class="h">New Materialities</h3><p>From physical matter to data, light and digital environments.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section class="slide dark concept" aria-labelledby="concept-h">
+  <nav class="side" aria-label="Sections"></nav>
+  <div class="slide-body">
+    <p class="lbl rv">Concept · Nature &amp; Technology</p>
+    <h2 class="h rv rv-d1" id="concept-h" style="margin-top:22px">Gastronomy, media art and nature</h2>
     <div class="lead">
-      <p class="rv"><b>Pre-rolls get skipped</b> because they get in the way. Banner blindness isn't cured by more creative banners. We offer a third way — placement inside content the viewer has chosen.</p>
-      <p class="rv rv-d1"><b>Viewers watch films</b> full-screen, with no second tab and no feed alongside. That kind of attention is worth more than reach today: you can't buy it at auction — you can only earn it through context.</p>
-      <p class="rv rv-d2"><b>Every placement</b> is matched to the title and the scene. Your brand gains associations with a story, not a random mix of placements.</p>
-    </div>
-  </div>
-  <div class="float f1" aria-hidden="true"><img src="assets/hero-cinema.jpg" alt=""></div>
-  <div class="float f2" aria-hidden="true"><img src="assets/set-stage.jpg" alt="" style="object-position:70% 50%"></div>
-  <div class="float f3" aria-hidden="true"><img src="assets/projector-beam.jpg" alt=""></div>
-</section>
-
-<!-- FORMATS -->
-<section class="slide dark formats" id="formats">
-  <nav class="side" aria-label="Sections"></nav>
-  <div class="slide-body">
-    <div class="formats-head">
-      <h2 class="h rv">One platform. Five ways in</h2>
-      <p class="rv rv-d1">Every format is built around your goal. Tell us your ambition — we'll match it with the titles that fit.</p>
-    </div>
-    <div class="tabs rv" role="tablist" aria-label="Placement formats" id="tabs"></div>
-    <div class="tabpanel rv" id="tabpanel" role="tabpanel" aria-live="polite">
-      <img id="tabimg" src="assets/hero-cinema.jpg" alt="">
-      <div class="tabcard" id="tabcard">
-        <span class="num" id="tabnum"></span>
-        <h3 class="h" id="tabtitle"></h3>
-        <p id="tabtext"></p>
-        <a class="pill" href="#contact">Discuss this format →</a>
-      </div>
+      <p class="rv">An exclusive dining experience where <b>gastronomy, media art, and nature</b> come together.</p>
+      <p class="rv">An immersive journey exploring the relationship between <b>nature and technology</b> through contemporary media art and gastronomy.</p>
+      <p class="rv"><b>Each course offers subtle clues</b> through flavours, textures, and ingredients, inviting guests to discover the connection with a curated artwork revealed throughout the evening.</p>
+      <p class="rv">Through projections, sound, and sensory elements, the space transforms into a living environment, creating an intimate experience where <b class="big">art is not only observed, but felt and discovered.</b></p>
     </div>
   </div>
 </section>
 
-<!-- PREMIERE -->
-<section class="slide light premier" id="premier">
-  <nav class="side" aria-label="Sections"></nav>
-  <div class="slide-body">
-    <p class="lbl rv">Premiere windows</p>
-    <div class="prem-stack">
-      <span class="thumb rv"><img src="assets/set-stage.jpg" alt=""></span>
-      <h3 class="h rv">Next to the season's biggest releases</h3>
-      <span class="thumb rv"><img src="assets/hero-cinema.jpg" alt=""></span>
-      <h3 class="h rv">Premieres concentrate attention</h3>
-      <span class="thumb rv"><img src="assets/projector-beam.jpg" alt=""></span>
-      <h3 class="h rv">From announcement to finale</h3>
-    </div>
-    <p class="prem-text rv">Nothing concentrates audience attention like a premiere. Seasonal packages anchor your brand to the platform's key releases — from announcement to finale.</p>
+<!-- ARTWORKS -->
+<section class="light" id="artworks">
+  <div class="art-head">
+    <div><p class="lbl rv">A curated selection by CIFRA</p><h2 class="h rv rv-d1" style="margin-top:22px">Works that set the evening</h2></div>
+    <p class="rv rv-d2">The final selection will be individually curated for each encounter and presented in dialogue with its gastronomic concept.</p>
+  </div>
+  <div class="agrid">
+    <figure class="atile"><img src="assets/pae/art-sun-eaters.jpg" alt="Still from Sun Eaters"><figcaption><span class="h">Sun Eaters</span><span>Maryna Makarenko</span></figcaption></figure>
+    <figure class="atile top"><img src="assets/pae/art-gpt-dream.jpg" alt="Still from Can GPT Dream of a Pink Elephant?"><figcaption><span class="h">Can GPT Dream of a Pink Elephant?</span><span>LIU Guangli</span></figcaption></figure>
+    <figure class="atile"><img src="assets/pae/art-sequence-error.jpg" alt="Still from Sequence Error"><figcaption><span class="h">Sequence Error</span><span>George Drivas</span></figcaption></figure>
+    <figure class="atile"><img src="assets/pae/art-spore-monologue.jpg" alt="Still from The Spore Monologue"><figcaption><span class="h">The Spore Monologue</span><span>Loong Pan</span></figcaption></figure>
   </div>
 </section>
 
-<!-- METRICS -->
-<section class="slide dark metrics" id="metrics">
-  <nav class="side" aria-label="Sections"></nav>
-  <div class="slide-body">
-    <p class="lbl rv">Reporting without the fluff</p>
-    <h2 class="h rv rv-d1" style="margin-top:22px">Every dollar, measured</h2>
-    <div class="mgrid">
-      <div class="mcell rv"><h3 class="h">Completed views</h3><p>Not impressions — completed contacts with your placement. You pay for attention, not for a player load.</p></div>
-      <div class="mcell rv rv-d1"><h3 class="h">Engagement</h3><p>Responses to integrations: click-throughs, saves and rewatches of scenes featuring your product.</p></div>
-      <div class="mcell rv"><h3 class="h">Brand lift</h3><p>Change in awareness and brand perception among campaign viewers — measured before and after the placement.</p></div>
-      <div class="mcell rv rv-d1"><h3 class="h">Full cycle</h3><p>Media plan → integration production → launch → report. One team for every stage of the campaign.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PACKAGES -->
-<section class="slide light packages" id="packages">
-  <nav class="side" aria-label="Sections"></nav>
-  <div class="slide-body">
-    <p class="lbl rv">Partnership packages</p>
-    <h2 class="h rv rv-d1" style="margin-top:22px">From placement to exclusivity</h2>
-    <div class="cards">
-      <article class="card rv">
-        <div class="thumb"><img src="assets/hero-cinema.jpg" alt=""></div>
-        <span class="tag">Package 01</span>
-        <h3 class="h">Title</h3>
-        <p>Sponsorship of a single film or series. Targeted presence alongside content that resonates with your audience.</p>
-        <ul><li>Opening credits and title description</li><li>First-screen placement</li><li>Completed-view report</li></ul>
-        <a class="plink" href="#contact">Discuss →</a>
-      </article>
-      <article class="card rv rv-d1">
-        <div class="thumb"><img src="assets/set-stage.jpg" alt=""></div>
-        <span class="tag">Package 02</span>
-        <h3 class="h">Season</h3>
-        <p>Seasonal expansion: anchoring to a premiere window plus regular integrations across the platform's shows all season long.</p>
-        <ul><li>Season premiere window</li><li>Integrations in 2+ shows</li><li>Brand lift study</li></ul>
-        <a class="plink" href="#contact">Discuss →</a>
-      </article>
-      <article class="card rv rv-d2">
-        <div class="thumb"><img src="assets/projector-beam.jpg" alt=""></div>
-        <span class="tag">Package 03</span>
-        <h3 class="h">Exclusive</h3>
-        <p>Category partnership: your brand is the only representative of its category on the platform. Maximum association, maximum presence.</p>
-        <ul><li>Category exclusivity</li><li>Integration production</li><li>End-to-end reporting</li></ul>
-        <a class="plink" href="#contact">Discuss →</a>
-      </article>
-    </div>
-
-    <p class="lbl rv" style="margin-top:clamp(70px,12vh,130px)">Where your brand appears</p>
-    <ul class="biglist">
-      <li class="rv"><a class="h" href="#formats">Title sponsorship ↗</a></li>
-      <li class="rv"><a class="h" href="#formats">Show integrations ↗</a></li>
-      <li class="rv"><a class="h" href="#formats">First screen ↗</a></li>
-      <li class="rv"><a class="h" href="#premier">Premiere windows ↗</a></li>
-      <li class="rv"><a class="h" href="#formats">Branded collections ↗</a></li>
-      <li class="rv"><a class="h" href="#formats">Product placement ↗</a></li>
+<!-- EXCLUSIVITY -->
+<section class="excl light" id="exclusivity">
+  <div class="excl-img"><img src="assets/pae/table-long.jpg" alt="A long dinner table dressed with flowers in a dimly lit space"></div>
+  <div class="excl-body">
+    <p class="lbl rv">The element of exclusivity</p>
+    <h2 class="h rv rv-d1">An experience designed around access, anticipation and discovery</h2>
+    <ul class="blist">
+      <li class="rv"><h3 class="h">Secret locations</h3><p>The location can be revealed only 24 / 48 hours before each encounter.</p></li>
+      <li class="rv"><h3 class="h">Private art access</h3><p>Specially selected works, previews or artistic content rarely accessible to the wider public.</p></li>
+      <li class="rv"><h3 class="h">Unexpected venues</h3><p>Each encounter can take place in a different setting across Dubai and Abu Dhabi.</p></li>
+      <li class="rv"><h3 class="h">Curated by CIFRA</h3><p>From the artistic narrative and selection of works to the dialogue between art, space and gastronomy.</p></li>
+      <li class="rv"><h3 class="h">Intimate by design</h3><p>Limited to approximately 30–40 guests, preserving the feeling of a private cultural salon.</p></li>
     </ul>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="slide light process bt-l" id="process">
+<!-- PROGRAMME -->
+<section class="prog dark" id="programme">
+  <div class="prog-body">
+    <div>
+      <p class="lbl rv">The programme</p>
+      <h2 class="h rv rv-d1" style="margin-top:22px">A year of Private Art Encounters</h2>
+      <p class="lead rv rv-d2">Private Art Encounters can become a signature cultural programme for your premium clients — building anticipation from one event to the next and creating a community around privileged access to contemporary culture.</p>
+    </div>
+    <div class="roles rv">
+      <p class="h">You provide the community</p>
+      <p class="h">CIFRA curates the cultural experience</p>
+    </div>
+  </div>
+  <div class="prog-img"><img src="assets/pae/flowers-close.jpg" alt="Close-up of a flower-dressed dinner table with glassware"></div>
+</section>
+
+<!-- WHO IT'S FOR (TBD) -->
+<section class="slide light who" id="who">
   <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <div class="process-head">
-      <h2 class="h rv">Our process</h2>
-      <p class="rv rv-d1">From the first brief to the final report, one team runs your campaign end to end.</p>
-    </div>
-    <div class="steps">
-      <div class="step rv"><h3 class="h">1. Brief</h3><p>Tell us about your brand, your audience and what the campaign needs to achieve.</p></div>
-      <div class="step rv rv-d1"><h3 class="h">2. Media plan</h3><p>We match formats, titles and timing to your objectives and send you the plan.</p></div>
-      <div class="step rv rv-d2"><h3 class="h">3. Production</h3><p>The platform's crew builds the integration into the story — without the feel of an insert.</p></div>
-      <div class="step rv rv-d3"><h3 class="h">4. Launch &amp; report</h3><p>The campaign goes live, and you get reporting on completed views, engagement and brand lift.</p></div>
+    <p class="lbl rv">Who it's for</p>
+    <div class="tbd rv" style="margin-top:26px;max-width:760px"><h2 class="h" style="max-width:none">Headline for the audience section</h2></div>
+    <div class="wgrid">
+      <div class="tbd rv"><h3 class="h">Audience 01</h3><p>Who this client is and what the encounter gives them.</p></div>
+      <div class="tbd rv rv-d1"><h3 class="h">Audience 02</h3><p>Who this client is and what the encounter gives them.</p></div>
+      <div class="tbd rv rv-d2"><h3 class="h">Audience 03</h3><p>Who this client is and what the encounter gives them.</p></div>
     </div>
   </div>
 </section>
@@ -374,94 +401,52 @@ button{font:inherit;color:inherit}
 <section class="slide dark contact" id="contact">
   <nav class="side" aria-label="Sections"></nav>
   <div class="slide-body">
-    <p class="lbl rv">Start a campaign</p>
     <div class="contact-grid">
       <div>
-        <h2 class="h rv">Let's build a media plan for your brand</h2>
-        <p class="lead rv rv-d1">Describe your goal — within three business days we'll come back with a proposal covering formats, titles and timing. No commitment: plan first, decision later. Or drop us a line at <a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a>.</p>
+        <h2 class="h rv">Imagine what art could unlock</h2>
+        <p class="lead rv rv-d1">Let's explore it together.</p>
         <div class="person rv rv-d2">
-          <span class="thumb"><img src="assets/projector-beam.jpg" alt=""></span>
-          <div><span class="lbl">Screenplay team</span><a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a></div>
+          <img src="assets/pae/philipp.jpg" alt="Philipp Mistakopulo">
+          <div><span class="lbl">Philipp Mistakopulo</span><a href="mailto:philipp@cifra.com">philipp@cifra.com</a></div>
         </div>
       </div>
       <form class="form rv rv-d1" id="leadform" novalidate>
         <div class="field"><label class="sr" for="f-name">Name</label><input id="f-name" name="name" type="text" placeholder="Name" autocomplete="name"></div>
-        <div class="field"><label class="sr" for="f-company">Company</label><input id="f-company" name="company" type="text" placeholder="Company or agency" autocomplete="organization"></div>
+        <div class="field"><label class="sr" for="f-company">Company</label><input id="f-company" name="company" type="text" placeholder="Company" autocomplete="organization"></div>
         <div class="field"><label class="sr" for="f-email">Work email</label><input id="f-email" name="email" type="email" placeholder="Work email" autocomplete="email"></div>
-        <button class="pill" type="submit">Request a media plan →</button>
+        <div class="field"><label class="sr" for="f-msg">Message</label><textarea id="f-msg" name="message" rows="3" placeholder="Tell us about your clients and the occasion"></textarea></div>
+        <button class="pill" type="submit">Request a proposal →</button>
         <p class="form-note">By clicking the button, you agree to the processing of your personal data.</p>
-        <div class="form-ok" id="formok" role="status"><span class="lbl">Request received</span>The SCREENPLAY team will get in touch within one business day and send you an outline of the media plan.</div>
+        <div class="form-ok" id="formok" role="status"><span class="lbl">Thank you</span>We'll be in touch shortly to explore what an encounter could look like for your clients.</div>
       </form>
     </div>
   </div>
 </section>
 
 <footer class="footer dark">
-  <span class="wordmark" aria-hidden="true">Screenplay</span>
+  <span class="wordmark" aria-hidden="true">CIFRA</span>
   <div class="foot-row">
-    <span>© 2026 SCREENPLAY — a streaming platform for brands</span>
-    <span><a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a> · <a href="#top">Back to top ↑</a></span>
+    <span>© 2026 CIFRA — Private Art Encounters</span>
+    <span><a href="mailto:philipp@cifra.com">philipp@cifra.com</a> · <a href="#top">Back to top ↑</a></span>
   </div>
 </footer>
 
 <script>
 (function(){
   "use strict";
-
-  /* мини-оглавление в каждой секции */
-  var items=[["about","About"],["formats","Formats"],["premier","Premieres"],["metrics","Metrics"],["packages","Packages"],["process","Process"],["contact","Contact"]];
+  var items=[["access","Cultural access"],["experience","Experience"],["themes","Themes"],["artworks","Artworks"],["exclusivity","Exclusivity"],["programme","Programme"],["who","Who it's for"],["contact","Contact"]];
   document.querySelectorAll(".slide").forEach(function(sec){
     var nav=sec.querySelector(".side"); if(!nav)return;
+    var cur=sec.id || (sec.classList.contains("concept")?"themes":"");
     nav.innerHTML=items.map(function(it){
-      return '<a href="#'+it[0]+'"'+(it[0]===sec.id?' class="on" aria-current="true"':'')+'>'+it[1]+'</a>';
+      return '<a href="#'+it[0]+'"'+(it[0]===cur?' class="on" aria-current="true"':'')+'>'+it[1]+'</a>';
     }).join("");
   });
 
-  /* шапка: прозрачная над hero, плотная при скролле */
   var header=document.getElementById("header");
   function onScroll(){ header.classList.toggle("solid", window.scrollY>40); }
   window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
 
-  /* табы форматов */
-  var formats=[
-    {t:"Title sponsorship",img:"assets/hero-cinema.jpg",pos:"50% 50%",d:"Your brand becomes the official partner of a film or series: logo in the opening credits, a mention in the description, priority across all of the title's materials."},
-    {t:"Show integrations",img:"assets/set-stage.jpg",pos:"50% 50%",d:"Native product presence in the frame and in the script. The platform's crew builds the brand into the story without the feel of an insert."},
-    {t:"First screen",img:"assets/projector-beam.jpg",pos:"50% 50%",d:"Placement at the moment of choice — before playback starts, when viewer attention peaks. Your brand sits next to the decision, not after it."},
-    {t:"Branded collections",img:"assets/hero-cinema.jpg",pos:"20% 60%",d:"Themed collections built around your campaign: “Date Night”, “Speed & Drive”. The platform's curatorial logic, with your brand as the host."},
-    {t:"Product placement",img:"assets/set-stage.jpg",pos:"80% 40%",d:"Product presence in titles already filmed in the platform's catalogue. A fast launch with no production cycle — live in weeks, not months."}
-  ];
-  var tabs=document.getElementById("tabs"), img=document.getElementById("tabimg"), card=document.getElementById("tabcard");
-  var num=document.getElementById("tabnum"), title=document.getElementById("tabtitle"), text=document.getElementById("tabtext");
-  tabs.innerHTML=formats.map(function(f,i){
-    return '<button class="tab" role="tab" id="tab-'+i+'" aria-controls="tabpanel" aria-selected="'+(i===0)+'" tabindex="'+(i===0?0:-1)+'">'+f.t+'</button>';
-  }).join("");
-  var btns=tabs.querySelectorAll(".tab"), current=-1;
-  function show(i,focus){
-    if(i===current)return;
-    btns.forEach(function(b,j){ b.setAttribute("aria-selected",j===i); b.tabIndex=j===i?0:-1; });
-    if(focus)btns[i].focus();
-    var f=formats[i];
-    var apply=function(){
-      img.src=f.img; img.style.objectPosition=f.pos;
-      num.textContent="0"+(i+1)+" / 0"+formats.length;
-      title.textContent=f.t; text.textContent=f.d;
-      document.getElementById("tabpanel").setAttribute("aria-labelledby","tab-"+i);
-      card.classList.remove("fade"); img.style.opacity=1;
-    };
-    if(current<0){apply();}
-    else{ card.classList.add("fade"); img.style.opacity=.35; setTimeout(apply,220); }
-    current=i;
-  }
-  btns.forEach(function(b,i){ b.addEventListener("click",function(){show(i);}); });
-  tabs.addEventListener("keydown",function(e){
-    if(e.key==="ArrowRight"||e.key==="ArrowLeft"){
-      e.preventDefault();
-      var n=(current+(e.key==="ArrowRight"?1:-1)+formats.length)%formats.length; show(n,true);
-    }
-  });
-  show(0);
-
-  /* появление при скролле */
   var rvs=Array.prototype.slice.call(document.querySelectorAll(".rv"));
   if("IntersectionObserver" in window){
     var io=new IntersectionObserver(function(entries){
@@ -477,7 +462,6 @@ button{font:inherit;color:inherit}
     },700);
   }else{ rvs.forEach(function(el){el.classList.add("in");}); }
 
-  /* форма */
   var form=document.getElementById("leadform"), ok=document.getElementById("formok");
   form.addEventListener("submit",function(e){
     e.preventDefault();
