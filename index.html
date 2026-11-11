@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCREENPLAY — реклама, которую не перематывают</title>
+<meta name="description" content="Стриминговая платформа для брендов: спонсорство тайтлов, интеграции в шоу, первый экран. B2B-размещение в премиальном видеоконтенте.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0D;
+  --panel:#101014;
+  --ink:#F5F2EA;
+  --muted:rgba(245,242,234,.55);
+  --faint:rgba(245,242,234,.32);
+  --line:rgba(245,242,234,.14);
+  --gold:#C9A05C;
+  --gold-soft:rgba(201,160,92,.55);
+  --ease-out:cubic-bezier(.25,1,.5,1);
+  --ease-cine:cubic-bezier(.8,0,.2,1);
+  --pad:clamp(20px,4vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Archivo',system-ui,sans-serif;
+  font-weight:400;
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--gold);color:#0B0B0D}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#26262c;border-radius:5px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.display{font-stretch:75%;font-weight:700;letter-spacing:-.01em;text-transform:uppercase;line-height:.92}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ---------- grain ---------- */
+.grain{
+  position:fixed;inset:-100%;z-index:60;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity:.07;
+  animation:grain 0.9s steps(3) infinite;
+}
+@keyframes grain{
+  0%{transform:translate3d(1%,-1%,0)}
+  25%{transform:translate3d(-4%,2%,0)}
+  50%{transform:translate3d(3%,-3%,0)}
+  75%{transform:translate3d(-2%,4%,0)}
+  100%{transform:translate3d(2%,1%,0)}
+}
+
+/* ---------- cursor ---------- */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;border-radius:50%;z-index:100}
+.cursor-dot{width:8px;height:8px;background:var(--ink);transform:translate(-50%,-50%)}
+.cursor-ring{width:34px;height:34px;border:1px solid rgba(245,242,234,.35);transform:translate(-50%,-50%);transition:width .35s var(--ease-out),height .35s var(--ease-out),border-color .35s var(--ease-out)}
+body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:var(--gold)}
+@media (hover:none),(max-width:900px){.cursor-dot,.cursor-ring{display:none}}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;filter:blur(14px);transform:translateY(28px);transition:opacity 1.1s var(--ease-cine),filter 1.2s var(--ease-cine),transform 1.1s var(--ease-cine)}
+.rv.in{opacity:1;filter:blur(0);transform:none}
+.rv-d1{transition-delay:.12s}.rv-d2{transition-delay:.24s}.rv-d3{transition-delay:.36s}.rv-d4{transition-delay:.48s}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;filter:none;transform:none;transition:none}
+  .grain{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- header ---------- */
+.hdr{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px var(--pad);
+  transition:background .5s var(--ease-out),backdrop-filter .5s var(--ease-out),border-color .5s var(--ease-out);
+  border-bottom:1px solid transparent;
+}
+.hdr.solid{background:rgba(11,11,13,.82);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.brand{font-stretch:75%;font-weight:800;font-size:20px;letter-spacing:.06em;text-transform:uppercase}
+.brand em{font-style:normal;color:var(--gold)}
+.nav{display:flex;gap:34px;align-items:center}
+.nav a{position:relative;display:flex;align-items:baseline;gap:8px;padding:6px 0;transition:opacity .35s var(--ease-out)}
+.nav a .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:width .5s var(--ease-out)}
+.nav a:hover{opacity:.75}
+.nav a:hover::after{width:100%}
+.hdr-cta{
+  border:1px solid var(--line);padding:11px 22px;border-radius:2px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  position:relative;overflow:hidden;isolation:isolate;transition:color .4s var(--ease-out),border-color .4s var(--ease-out);
+}
+.hdr-cta::before{content:"";position:absolute;inset:0;background:var(--gold);clip-path:inset(50% 50%);transition:clip-path .4s var(--ease-out);z-index:-1}
+.hdr-cta:hover{color:#0B0B0D;border-color:var(--gold)}
+.hdr-cta:hover::before{clip-path:inset(0 0)}
+@media (max-width:900px){.nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:heroZoom 14s var(--ease-out) forwards}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.55) 0%,rgba(11,11,13,.15) 40%,rgba(11,11,13,.92) 100%)}
+.hero-inner{position:relative;z-index:1;padding:0 var(--pad) clamp(36px,6vh,72px)}
+.hero-kicker{display:flex;align-items:center;gap:14px;color:var(--gold);margin-bottom:22px}
+.hero-kicker::before{content:"";width:42px;height:1px;background:var(--gold)}
+.hero h1{font-size:clamp(44px,8.4vw,124px);max-width:14ch}
+.hero h1 .gold{color:var(--gold)}
+.hero-sub{margin-top:26px;max-width:52ch;color:var(--muted);font-size:clamp(15px,1.3vw,18px)}
+.hero-row{display:flex;align-items:center;justify-content:space-between;gap:32px;margin-top:40px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:14px;
+  border:1px solid var(--ink);padding:18px 34px;border-radius:2px;cursor:pointer;background:transparent;color:var(--ink);
+  font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  position:relative;overflow:hidden;isolation:isolate;transition:color .4s var(--ease-out),border-color .4s var(--ease-out);
+}
+.btn::before{content:"";position:absolute;inset:0;background:var(--gold);clip-path:inset(50% 50%);transition:clip-path .4s var(--ease-out);z-index:-1}
+.btn:hover{color:#0B0B0D;border-color:var(--gold)}
+.btn:hover::before{clip-path:inset(0 0)}
+.btn svg{transition:transform .4s var(--ease-out)}
+.btn:hover svg{transform:translateX(6px)}
+.hero-meta{display:flex;gap:clamp(20px,3vw,48px);color:var(--faint)}
+.hero-meta span{display:block}
+.hero-meta b{display:block;color:var(--ink);font-weight:600;font-stretch:80%;font-size:20px;text-transform:uppercase;letter-spacing:.02em;margin-top:4px}
+@media (max-width:560px){.hero-meta{flex-direction:column;gap:16px}}
+
+/* rotating seal */
+.seal{position:absolute;right:var(--pad);top:110px;z-index:2;width:120px;height:120px}
+.seal svg{width:100%;height:100%;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.seal .seal-core{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--gold)}
+@media (max-width:900px){.seal{display:none}}
+
+/* ---------- marquee ---------- */
+.marquee{background:var(--gold);color:#0B0B0D;overflow:hidden;padding:14px 0;border-top:1px solid #0B0B0D;border-bottom:1px solid #0B0B0D}
+.marquee-track{display:flex;gap:0;width:max-content;animation:mq 26s linear infinite}
+.marquee-track span{font-stretch:75%;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.08em;padding:0 26px;white-space:nowrap}
+.marquee-track i{font-style:normal;opacity:.45;padding:0}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+/* ---------- manifesto ---------- */
+.manifesto{padding:clamp(90px,14vh,160px) var(--pad);border-bottom:1px solid var(--line)}
+.manifesto-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(36px,6vw,96px);align-items:start}
+.manifesto h2{font-size:clamp(30px,4.6vw,64px);max-width:20ch}
+.manifesto h2 .gold{color:var(--gold)}
+.mani-side p{color:var(--muted);margin-bottom:22px;max-width:44ch}
+.mani-side p b{color:var(--ink);font-weight:600}
+.mani-tag{color:var(--gold);margin-bottom:26px;display:flex;align-items:center;gap:12px}
+.mani-tag::before{content:"";width:30px;height:1px;background:var(--gold)}
+@media (max-width:900px){.manifesto-grid{grid-template-columns:1fr}}
+
+/* ---------- formats ---------- */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:0 var(--pad);margin-bottom:clamp(40px,6vh,64px);flex-wrap:wrap}
+.sec-head h2{font-size:clamp(34px,5.4vw,76px)}
+.sec-head .mono{color:var(--gold)}
+.formats{padding:clamp(90px,13vh,150px) 0;background:var(--panel)}
+.frow{border-top:1px solid var(--line);padding:0 var(--pad)}
+.frow:last-child{border-bottom:1px solid var(--line)}
+.frow-in{display:grid;grid-template-columns:80px minmax(0,1.1fr) minmax(0,1.4fr) auto;gap:clamp(18px,3vw,48px);align-items:center;padding:clamp(26px,4vh,40px) 0;transition:padding-left .5s var(--ease-out)}
+.frow:hover .frow-in{padding-left:18px}
+.frow .fnum{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gold)}
+.frow h3{font-stretch:75%;font-weight:700;font-size:clamp(22px,2.6vw,34px);text-transform:uppercase;line-height:1}
+.frow p{color:var(--muted);font-size:15px;max-width:52ch}
+.frow .farrow{color:var(--faint);transition:transform .5s var(--ease-out),color .5s var(--ease-out)}
+.frow:hover .farrow{transform:translateX(8px);color:var(--gold)}
+@media (max-width:900px){.frow-in{grid-template-columns:48px 1fr;grid-template-rows:auto auto}.frow p{grid-column:2}.frow .farrow{display:none}}
+
+/* ---------- premiere panel ---------- */
+.panel{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.25),rgba(11,11,13,.9))}
+.panel-inner{position:relative;z-index:1;padding:clamp(36px,6vh,72px) var(--pad);width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.panel h2{font-size:clamp(34px,5.4vw,76px);max-width:16ch}
+.panel p{color:var(--muted);max-width:40ch}
+.panel .mono{color:var(--gold);display:block;margin-bottom:18px}
+
+/* ---------- metrics ---------- */
+.metrics{padding:clamp(90px,13vh,150px) 0}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mcell{padding:clamp(28px,4vh,44px) clamp(20px,2.4vw,36px);border-right:1px solid var(--line)}
+.mcell:last-child{border-right:0}
+.mcell .mono{color:var(--gold);display:block;margin-bottom:16px}
+.mcell h3{font-stretch:75%;font-weight:700;font-size:clamp(19px,1.9vw,24px);text-transform:uppercase;margin-bottom:12px;line-height:1.05}
+.mcell p{color:var(--muted);font-size:14px;line-height:1.55}
+@media (max-width:900px){.mgrid{grid-template-columns:1fr 1fr}.mcell:nth-child(2){border-right:0}.mcell:nth-child(1),.mcell:nth-child(2){border-bottom:1px solid var(--line)}}
+@media (max-width:560px){.mgrid{grid-template-columns:1fr}.mcell{border-right:0;border-bottom:1px solid var(--line)}.mcell:last-child{border-bottom:0}}
+
+/* ---------- packages ---------- */
+.packages{padding:0 0 clamp(90px,13vh,150px)}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.pcard{background:var(--bg);padding:clamp(28px,3.6vw,44px);display:flex;flex-direction:column;gap:18px;min-height:320px;transition:background .5s var(--ease-out)}
+.pcard:hover{background:#131318}
+.pcard .mono{color:var(--gold)}
+.pcard h3{font-stretch:75%;font-weight:700;font-size:clamp(24px,2.4vw,32px);text-transform:uppercase;line-height:1}
+.pcard p{color:var(--muted);font-size:14px;flex:1}
+.pcard ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.pcard li{font-size:14px;color:var(--muted);padding-left:18px;position:relative}
+.pcard li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:1px;background:var(--gold)}
+.pcard .plink{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);display:inline-flex;gap:10px;align-items:center;margin-top:6px;transition:color .35s var(--ease-out)}
+.pcard .plink:hover{color:var(--gold)}
+@media (max-width:900px){.pgrid{grid-template-columns:1fr}.pcard{min-height:0}}
+
+/* ---------- contact ---------- */
+.contact{position:relative;overflow:hidden;padding:clamp(100px,16vh,180px) var(--pad)}
+.contact img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.contact::after{content:"";position:absolute;inset:0;background:rgba(11,11,13,.78)}
+.contact-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px)}
+.contact h2{font-size:clamp(36px,5vw,68px);max-width:16ch}
+.contact .lead{color:var(--muted);margin-top:22px;max-width:44ch}
+.contact .lead b{color:var(--ink);font-weight:600}
+.form{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.field{border-bottom:1px solid var(--line);padding:20px 0 14px;display:flex;flex-direction:column;gap:6px}
+.field label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.field input{
+  background:transparent;border:0;outline:none;color:var(--ink);
+  font-family:'Archivo',sans-serif;font-size:17px;padding:2px 0;
+  border-bottom:1px solid transparent;transition:border-color .3s var(--ease-out);
+}
+.field input:focus{border-bottom-color:var(--gold)}
+.field input::placeholder{color:rgba(245,242,234,.28)}
+.form .btn{margin-top:32px;align-self:flex-start}
+.form-note{font-size:13px;color:var(--faint);margin-top:18px}
+.form-ok{display:none;border:1px solid var(--gold);padding:28px;margin-top:32px;color:var(--ink)}
+.form-ok .mono{color:var(--gold);display:block;margin-bottom:12px}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+
+/* ---------- footer ---------- */
+.footer{border-top:1px solid var(--line);padding:28px var(--pad);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--faint);font-size:13px}
+.footer a{transition:color .3s var(--ease-out)}
+.footer a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<header class="hdr" id="hdr">
+  <a class="brand" href="#top">Screen<em>play</em></a>
+  <nav class="nav mono" aria-label="Разделы">
+    <a href="#formats"><span class="num">01</span>Форматы</a>
+    <a href="#premier"><span class="num">02</span>Премьеры</a>
+    <a href="#metrics"><span class="num">03</span>Метрики</a>
+    <a href="#contact"><span class="num">04</span>Контакты</a>
+  </nav>
+  <a class="hdr-cta" href="#contact">Медиаплан</a>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"><img src="assets/hero-cinema.jpg" alt=""></div>
+  <div class="seal" aria-hidden="true">
+    <svg viewBox="0 0 120 120">
+      <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+      <text fill="#C9A05C" font-size="10.5" font-family="'JetBrains Mono',monospace" letter-spacing="2.5">
+        <textPath href="#circ">SCREENPLAY · PREMIUM VIDEO · B2B ·</textPath>
+      </text>
+    </svg>
+    <span class="seal-core">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A05C" stroke-width="1.4"><path d="M4 5h16v14H4z"/><path d="M4 9h16"/></svg>
+    </span>
+  </div>
+  <div class="hero-inner">
+    <p class="hero-kicker mono rv">Стриминговая платформа · Размещение для брендов</p>
+    <h1 class="display rv rv-d1">Реклама, которую <span class="gold">не&nbsp;перематывают</span></h1>
+    <p class="hero-sub rv rv-d2">Спонсорство тайтлов, интеграции в шоу и размещение на первом экране — в премиальном видеоконтенте, который зритель выбирает сам.</p>
+    <div class="hero-row rv rv-d3">
+      <a class="btn" href="#contact">Получить медиаплан
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 6h14M10 1l5 5-5 5"/></svg>
+      </a>
+      <div class="hero-meta mono">
+        <span>Формат<b>Кино · Сериалы · Шоу</b></span>
+        <span>Модель<b>Спонсорство + Реклама</b></span>
+        <span>Отчётность<b>Полный цикл</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mqt">
+    <span>Спонсорство тайтлов</span><i>·</i><span>Интеграции в шоу</span><i>·</i><span>Первый экран</span><i>·</i><span>Премьерные окна</span><i>·</i><span>Брендированные подборки</span><i>·</i><span>Product placement</span><i>·</i>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-grid">
+    <div>
+      <p class="mani-tag mono rv">Почему это работает</p>
+      <h2 class="display rv rv-d1">Зритель пришёл за историей. Бренд — часть сюжета, <span class="gold">а&nbsp;не&nbsp;помеха</span> перед ним</h2>
+    </div>
+    <div class="mani-side">
+      <p class="rv rv-d2">Баннерную слепоту не лечат креативнее баннеры. Пре-ролл пропускают, потому что он мешает. Мы предлагаем третий путь — <b>размещение внутри контента, который выбран зрителем</b>.</p>
+      <p class="rv rv-d3">Зритель смотрит кино в полный экран, без второй вкладки и без ленты рядом. Это <b>внимание, которое сегодня дороже охвата</b>: его нельзя купить аукционом, его можно только заслужить контекстом.</p>
+      <p class="rv rv-d4">Каждое размещение согласуется с тайтлом и сценой. Ваш бренд получает ассоциации с историей, а не случайную подборку площадок.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section class="formats" id="formats">
+  <div class="sec-head">
+    <h2 class="display rv">Форматы <span style="color:var(--gold)">размещения</span></h2>
+    <p class="mono rv rv-d1">01 — Пять рабочих механик</p>
+  </div>
+  <div class="frow rv"><div class="frow-in">
+    <span class="fnum">01</span><h3>Спонсорство тайтлов</h3>
+    <p>Ваш бренд — официальный партнёр фильма или сериала. Логотип в заставке, упоминание в описании, приоритет во всех материалах тайтла.</p>
+    <svg class="farrow" width="26" height="12" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 6h24M19 1l5 5-5 5"/></svg>
+  </div></div>
+  <div class="frow rv"><div class="frow-in">
+    <span class="fnum">02</span><h3>Интеграции в шоу</h3>
+    <p>Нативное присутствие продукта в кадре и сценарии. Съёмочная команда платформы встраивает бренд в историю без ощущения «вставки».</p>
+    <svg class="farrow" width="26" height="12" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 6h24M19 1l5 5-5 5"/></svg>
+  </div></div>
+  <div class="frow rv"><div class="frow-in">
+    <span class="fnum">03</span><h3>Первый экран</h3>
+    <p>Размещение в момент выбора контента — до старта просмотра, когда внимание зрителя максимально. Ваш бренд рядом с решением, а не после него.</p>
+    <svg class="farrow" width="26" height="12" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 6h24M19 1l5 5-5 5"/></svg>
+  </div></div>
+  <div class="frow rv"><div class="frow-in">
+    <span class="fnum">04</span><h3>Брендированные подборки</h3>
+    <p>Тематические коллекции под вашу кампанию: «Вечер для двоих», «Драйв и скорость». Кураторская логика платформы + ваш бренд как ведущий.</p>
+    <svg class="farrow" width="26" height="12" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 6h24M19 1l5 5-5 5"/></svg>
+  </div></div>
+  <div class="frow rv"><div class="frow-in">
+    <span class="fnum">05</span><h3>Product placement</h3>
+    <p>Присутствие продукта в уже снятых тайтлах из каталога платформы. Быстрый запуск без производственного цикла — размещение за недели, а не месяцы.</p>
+    <svg class="farrow" width="26" height="12" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 6h24M19 1l5 5-5 5"/></svg>
+  </div></div>
+</section>
+
+<!-- PREMIERE PANEL -->
+<section class="panel" id="premier">
+  <img src="assets/set-stage.jpg" alt="Съёмочная площадка стримингового контента">
+  <div class="panel-inner">
+    <div class="rv">
+      <span class="mono">02 — Премьерные окна</span>
+      <h2 class="display">Рядом с главными релизами сезона</h2>
+    </div>
+    <p class="rv rv-d1">Премьера концентрирует внимание аудитории как ничто другое. Сезонные пакеты закрепляют ваш бренд за ключевыми релизами платформы — от анонса до финала.</p>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics" id="metrics">
+  <div class="sec-head">
+    <h2 class="display rv">Каждый рубль — <span style="color:var(--gold)">измерим</span></h2>
+    <p class="mono rv rv-d1">03 — Отчётность без «воды»</p>
+  </div>
+  <div class="mgrid rv rv-d1">
+    <div class="mcell"><span class="mono">A</span><h3>Досмотры</h3><p>Не показы, а досмотренные контакты с вашим размещением. Вы платите за внимание, а не за загрузку плеера.</p></div>
+    <div class="mcell"><span class="mono">B</span><h3>Вовлечение</h3><p>Реакции на интеграции: переходы, сохранения, повторные просмотры сцен с продуктом бренда.</p></div>
+    <div class="mcell"><span class="mono">C</span><h3>Brand lift</h3><p>Изменение узнаваемости и отношения к бренду среди зрителей кампании — замер до и после размещения.</p></div>
+    <div class="mcell"><span class="mono">D</span><h3>Полный цикл</h3><p>Медиаплан → производство интеграции → запуск → отчёт. Один контакт-команды на все этапы кампании.</p></div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="packages">
+  <div class="sec-head">
+    <h2 class="display rv">Пакеты <span style="color:var(--gold)">сотрудничества</span></h2>
+    <p class="mono rv rv-d1">04 — От размещения до эксклюзива</p>
+  </div>
+  <div class="pgrid rv rv-d1">
+    <div class="pcard">
+      <span class="mono">Пакет 01</span>
+      <h3>Тайтл</h3>
+      <p>Спонсорство одного фильма или сериала. Точечное присутствие рядом с контентом, который резонирует с аудиторией бренда.</p>
+      <ul>
+        <li>Заставка и описание тайтла</li>
+        <li>Размещение на первом экране</li>
+        <li>Отчёт по досмотрам</li>
+      </ul>
+      <a class="plink" href="#contact">Обсудить <span>→</span></a>
+    </div>
+    <div class="pcard">
+      <span class="mono">Пакет 02</span>
+      <h3>Сезон</h3>
+      <p>Сезонная экспансия: закрепление за премьерным окном и регулярные интеграции в шоу платформы на весь сезон.</p>
+      <ul>
+        <li>Премьерное окно сезона</li>
+        <li>Интеграции в 2+ шоу</li>
+        <li>Brand lift-замер</li>
+      </ul>
+      <a class="plink" href="#contact">Обсудить <span>→</span></a>
+    </div>
+    <div class="pcard">
+      <span class="mono">Пакет 03</span>
+      <h3>Эксклюзив</h3>
+      <p>Категорийное партнёрство: ваш бренд — единственный представитель категории на платформе. Максимум ассоциаций, максимум присутствия.</p>
+      <ul>
+        <li>Эксклюзив категории</li>
+        <li>Производство интеграций</li>
+        <li>Сквозная отчётность</li>
+      </ul>
+      <a class="plink" href="#contact">Обсудить <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <img src="assets/projector-beam.jpg" alt="">
+  <div class="contact-grid">
+    <div>
+      <p class="mani-tag mono rv" style="color:var(--gold)">05 — Старт кампании</p>
+      <h2 class="display rv rv-d1">Соберём медиаплан под ваш бренд</h2>
+      <p class="lead rv rv-d2">Опишите задачу — вернёмся с предложением по форматам, тайтлам и таймингу <b>в течение трёх рабочих дней</b>. Без обязательств: сначала план, потом решение.</p>
+    </div>
+    <form class="form rv rv-d2" id="leadform" novalidate>
+      <div class="field">
+        <label for="f-name">Имя</label>
+        <input id="f-name" name="name" type="text" placeholder="Как к вам обращаться" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="f-company">Компания</label>
+        <input id="f-company" name="company" type="text" placeholder="Бренд или агентство" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="f-email">Рабочая почта</label>
+        <input id="f-email" name="email" type="email" placeholder="name@company.ru" autocomplete="email">
+      </div>
+      <button class="btn" type="submit">Запросить медиаплан
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 6h14M10 1l5 5-5 5"/></svg>
+      </button>
+      <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.</p>
+      <div class="form-ok" id="formok" role="status">
+        <span class="mono">Заявка принята</span>
+        Команда SCREENPLAY свяжется с вами в течение рабочего дня и пришлёт структуру медиаплана.
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>© 2026 SCREENPLAY — стриминговая платформа для брендов</span>
+  <span><a href="mailto:partners@screenplay.tv">partners@screenplay.tv</a> · <a href="#top">Наверх ↑</a></span>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  /* header solid on scroll */
+  var hdr=document.getElementById("hdr");
+  function onScroll(){ if(window.scrollY>40){hdr.classList.add("solid");}else{hdr.classList.remove("solid");} }
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+
+  /* reveal on scroll */
+  var rvs=Array.prototype.slice.call(document.querySelectorAll(".rv"));
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+    },{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+    rvs.forEach(function(el){io.observe(el);});
+    /* safety: force-reveal anything already in the viewport */
+    setTimeout(function(){
+      rvs.forEach(function(el){
+        if(el.classList.contains("in"))return;
+        var r=el.getBoundingClientRect();
+        if(r.top<window.innerHeight && r.bottom>0){ el.classList.add("in"); io.unobserve(el); }
+      });
+    },700);
+  }else{
+    rvs.forEach(function(el){el.classList.add("in");});
+  }
+
+  /* seamless marquee: duplicate the track content */
+  var mqt=document.getElementById("mqt");
+  if(mqt){ mqt.innerHTML+=mqt.innerHTML; }
+
+  /* custom cursor */
+  var dot=document.querySelector(".cursor-dot"), ring=document.querySelector(".cursor-ring");
+  if(dot && window.matchMedia("(hover:hover)").matches){
+    var rx=0,ry=0,tx=0,ty=0;
+    document.addEventListener("mousemove",function(e){
+      tx=e.clientX; ty=e.clientY;
+      dot.style.transform="translate("+(tx-4)+"px,"+(ty-4)+"px)";
+    });
+    (function loop(){
+      rx+=(tx-rx)*.14; ry+=(ty-ry)*.14;
+      ring.style.transform="translate("+rx+"px,"+ry+"px) translate(-50%,-50%)";
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll("a,button,input").forEach(function(el){
+      el.addEventListener("mouseenter",function(){document.body.classList.add("cursor-hover");});
+      el.addEventListener("mouseleave",function(){document.body.classList.remove("cursor-hover");});
+    });
+  }
+
+  /* form */
+  var form=document.getElementById("leadform"), ok=document.getElementById("formok");
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var name=form.name.value.trim(), company=form.company.value.trim(), email=form.email.value.trim();
+    var bad=function(el){ el.style.borderBottomColor="#c0564f"; setTimeout(function(){el.style.borderBottomColor="";},1600); };
+    if(!name){bad(form.name);return;}
+    if(!company){bad(form.company);return;}
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){bad(form.email);return;}
+    form.querySelector("button").style.display="none";
+    form.querySelector(".form-note").style.display="none";
+    ok.style.display="block";
+  });
+})();
+</script>
+</body>
+</html>
