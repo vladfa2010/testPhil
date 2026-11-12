@@ -148,13 +148,17 @@ h2.h{font-size:clamp(26px,4vw,62px);max-width:18ch}
 .agrid{display:grid;grid-template-columns:1fr 1fr}
 .atile{position:relative;aspect-ratio:16/8;overflow:hidden;background:#111}
 .atile img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.atile{display:block;color:#fff}
 .atile:hover img{transform:scale(1.03)}
+.atile .cap .go{margin-top:12px;font-size:13px;opacity:0;transform:translateY(6px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.atile:hover .go,.atile:focus-visible .go{opacity:.95;transform:none}
+@media (hover:none){.atile .cap .go{opacity:.9;transform:none}}
 .atile::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 55%)}
 .atile.top::after{background:linear-gradient(180deg,rgba(0,0,0,.6),transparent 55%)}
-.atile.top figcaption{top:clamp(16px,2.4vw,32px);bottom:auto}
-.atile figcaption{position:absolute;left:clamp(16px,2.4vw,36px);bottom:clamp(16px,2.4vw,32px);z-index:1;color:#fff}
-.atile figcaption .h{font-size:clamp(16px,1.5vw,22px);color:#fff;max-width:16ch}
-.atile figcaption span{display:block;margin-top:6px;font-size:14px;opacity:.85}
+.atile.top .cap{top:clamp(16px,2.4vw,32px);bottom:auto}
+.atile .cap{position:absolute;left:clamp(16px,2.4vw,36px);bottom:clamp(16px,2.4vw,32px);z-index:1;color:#fff}
+.atile .cap .h{font-size:clamp(16px,1.5vw,22px);color:#fff;max-width:16ch}
+.atile .cap span{display:block;margin-top:6px;font-size:14px;opacity:.85}
 @media (max-width:760px){.agrid{grid-template-columns:1fr}}
 
 /* ---------- EXCLUSIVITY ---------- */
@@ -382,10 +386,10 @@ h2.h{font-size:clamp(26px,4vw,62px);max-width:18ch}
     <p class="rv rv-d2">The final selection will be individually curated for each encounter and presented in dialogue with its gastronomic concept.</p>
   </div>
   <div class="agrid">
-    <figure class="atile"><img src="assets/pae/art-sun-eaters.jpg" alt="Still from Sun Eaters"><figcaption><span class="h">Sun Eaters</span><span>Maryna Makarenko</span></figcaption></figure>
-    <figure class="atile top"><img src="assets/pae/art-gpt-dream.jpg" alt="Still from Can GPT Dream of a Pink Elephant?"><figcaption><span class="h">Can GPT Dream of a Pink Elephant?</span><span>LIU Guangli</span></figcaption></figure>
-    <figure class="atile"><img src="assets/pae/art-sequence-error.jpg" alt="Still from Sequence Error"><figcaption><span class="h">Sequence Error</span><span>George Drivas</span></figcaption></figure>
-    <figure class="atile"><img src="assets/pae/art-spore-monologue.jpg" alt="Still from The Spore Monologue"><figcaption><span class="h">The Spore Monologue</span><span>Loong Pan</span></figcaption></figure>
+    <a class="atile" href="https://cifra.com/project/sun-eaters" target="_blank" rel="noopener"><img src="assets/pae/art-sun-eaters.jpg" alt="Still from Sun Eaters"><span class="cap"><span class="h">Sun Eaters</span><span>Maryna Makarenko</span><span class="go" aria-hidden="true">View on CIFRA ↗</span></span></a>
+    <a class="atile top" href="https://cifra.com/project/can-gpt-dream-of-a-pink-elephant" target="_blank" rel="noopener"><img src="assets/pae/art-gpt-dream.jpg" alt="Still from Can GPT Dream of a Pink Elephant?"><span class="cap"><span class="h">Can GPT Dream of a Pink Elephant?</span><span>LIU Guangli</span><span class="go" aria-hidden="true">View on CIFRA ↗</span></span></a>
+    <a class="atile" href="https://cifra.com/project/sequence-error-1" target="_blank" rel="noopener"><img src="assets/pae/art-sequence-error.jpg" alt="Still from Sequence Error"><span class="cap"><span class="h">Sequence Error</span><span>George Drivas</span><span class="go" aria-hidden="true">View on CIFRA ↗</span></span></a>
+    <a class="atile" href="https://cifra.com/project/the-spore-monologue" target="_blank" rel="noopener"><img src="assets/pae/art-spore-monologue.jpg" alt="Still from The Spore Monologue"><span class="cap"><span class="h">The Spore Monologue</span><span>Loong Pan</span><span class="go" aria-hidden="true">View on CIFRA ↗</span></span></a>
   </div>
   <p class="art-foot">Selected works shown as examples.</p>
 </section>
